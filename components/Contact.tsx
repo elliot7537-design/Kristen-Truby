@@ -37,31 +37,33 @@ export function Contact() {
           <Reveal>
             <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-600">
               <span className="h-px w-8 bg-forest-600/50" />
-              <span>Reach out</span>
+              <span>Let&apos;s Walk This Together</span>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="font-display mt-8 text-6xl md:text-7xl leading-[0.95] text-forest-950">
-              Let&apos;s
+              Clarity
               <br />
-              <em className="italic text-forest-700">talk.</em>
+              <em className="italic text-forest-700">Starts Here.</em>
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
             <p className="mt-8 text-ink-700 leading-relaxed text-[17px] max-w-md">
-              Fill out the form and I&apos;ll reply within two business days
-              with next steps. No pressure, no pitch — just a real
-              conversation about where you are and what&apos;s next.
+              Feeling stuck or unsure of your next steps? In a free
+              30-minute consultation, I&apos;ll join you through the process
+              and chart your next move — together. Take the next step toward
+              clarity, confidence, and a deeper connection with God. You
+              don&apos;t have to do it alone.
             </p>
           </Reveal>
           <Reveal delay={0.3}>
             <a
-              href="mailto:hello@kristentruby.com"
+              href="mailto:hello@rootedandrising.com"
               className="mt-10 inline-flex items-center gap-3 text-forest-800 hover:text-gold-500 transition-colors"
             >
               <Mail size={18} strokeWidth={1.5} />
               <span className="text-sm tracking-wide">
-                hello@kristentruby.com
+                hello@rootedandrising.com
               </span>
             </a>
           </Reveal>
@@ -111,7 +113,7 @@ export function Contact() {
                 disabled={status === "pending"}
                 className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors disabled:opacity-60"
               >
-                {status === "pending" ? "Sending..." : "Send message"}
+                {status === "pending" ? "Sending..." : "Book Free Consultation"}
                 <ArrowRight
                   size={14}
                   className="transition-transform duration-300 group-hover:translate-x-1"

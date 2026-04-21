@@ -37,8 +37,11 @@ export function Nav() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-10 py-5">
         <a
           href="#top"
-          className="font-display text-cream-50 text-xl md:text-2xl tracking-wide"
+          className="font-display text-cream-50 text-xl md:text-2xl tracking-wide leading-none"
         >
+          <span className="block text-[10px] non-italic uppercase tracking-widest-xl text-sage-300/80 font-sans mb-0.5">
+            Rooted &amp; Rising
+          </span>
           Kristen <span className="italic text-sage-300">Truby</span>
         </a>
 
@@ -58,7 +61,7 @@ export function Nav() {
           href="#contact"
           className="hidden md:inline-flex items-center gap-2 border border-cream-100/40 px-5 py-2.5 text-[11px] uppercase tracking-widest-xl text-cream-50 hover:bg-cream-50 hover:text-forest-950 transition-all duration-300"
         >
-          Book a Call
+          Book a Consultation
         </a>
 
         <button

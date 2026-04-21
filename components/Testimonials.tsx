@@ -6,21 +6,21 @@ import { Reveal, RevealStagger, RevealItem } from "./Reveal";
 const TESTIMONIALS = [
   {
     quote:
-      "Kristen doesn't try to fix you — she helps you hear God again. In twelve weeks I went from running on fumes to actually knowing who I am.",
-    name: "Meredith K.",
-    city: "Dallas, TX",
+      "Kristen Truby's approach works so well for me to grow as a community leader. She has been instrumental in helping me reach my goals. The coaching helped me to gain perspective and greatly challenged me. If you are looking for life coaching from a Christian perspective, look no further. Kristen's support, care, and encouragement mean everything!",
+    name: "Jennifer A.",
+    city: "Coaching Client",
   },
   {
     quote:
-      "I came wanting a career plan. I left with a whole new relationship with Jesus. Everything else has fallen into place because of that.",
-    name: "Avery S.",
-    city: "Charlotte, NC",
+      "I would highly recommend Kristen as a warm, person-centered coach. Throughout our sessions, I appreciated the flexibility and understanding she offered throughout the whole process. I especially appreciated that Kristen helped me find clarity and direction in my life. Choosing to make healthy, real choices with her coaching was absolutely life-changing.",
+    name: "Candace D.",
+    city: "Coaching Client",
   },
   {
     quote:
-      "Every session felt like someone finally handed me a compass. Scripture, honest questions, and a lot of laughter. I'd recommend her to every woman I love.",
-    name: "Danielle R.",
-    city: "Seattle, WA",
+      "Working with Kristen has been one of the best decisions I've made for my personal growth. She creates a safe, Christ-centered space where you can be completely honest. I walked away with clarity, confidence, and a renewed sense of who God made me to be.",
+    name: "Michelle T.",
+    city: "Coaching Client",
   },
 ];
 
@@ -61,7 +61,7 @@ export function Testimonials() {
         </RevealStagger>
 
         <p className="mt-8 text-[10px] uppercase tracking-widest-xl text-cream-100/30">
-          * Sample testimonials — replace with real client words when ready.
+          * What clients are saying — names used with permission.
         </p>
       </div>
     </section>

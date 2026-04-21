@@ -45,44 +45,42 @@ export function About() {
 
           <Reveal delay={0.1}>
             <h2 className="font-display mt-8 text-5xl md:text-7xl leading-[0.95] text-forest-950">
-              The <em className="italic text-forest-700">guide</em> beside
-              <br />
-              you on the way.
+              Hi, I&apos;m{" "}
+              <em className="italic text-forest-700">Kristen</em> Truby.
             </h2>
           </Reveal>
 
           <div className="mt-10 space-y-6 max-w-xl text-ink-700 leading-relaxed text-[17px]">
             <Reveal delay={0.15}>
               <p>
-                For years I chased a version of &ldquo;enough&rdquo; the world
-                kept moving. I built the career, checked the boxes, and
-                quietly wondered why my soul still felt thirsty. Then Jesus
-                met me in the noise — and slowly, gently, taught me how to
-                listen again.
+                I&apos;m a Certified Christian Life Coach with a Master&apos;s
+                in Sociology and 20+ years of professional experience. I
+                specialize in guiding individuals through life&apos;s most
+                complex seasons of change, adversity, and growth — through
+                Biblical truth and personal conviction.
               </p>
             </Reveal>
             <Reveal delay={0.25}>
               <p>
-                Now I walk alongside women who want more than a life that
-                looks good on paper. Through Scripture, honest
-                conversation, and a lot of prayer, we rebuild identity
-                from the inside out — rooted in who God says you are, not
-                what you produce.
+                I create a Christ-centered space where you can reconnect
+                with your God-given identity and move forward with
+                clarity, courage, and confidence. God is calling you
+                higher, and I&apos;m honored to walk alongside you on
+                that journey.
               </p>
             </Reveal>
             <Reveal delay={0.35}>
               <p>
-                This isn&apos;t therapy and it isn&apos;t a pep talk.
-                It&apos;s a surrendered friendship with a clear direction:
-                a life that&apos;s actually yours, given back to the One
-                who made it.
+                Together we&apos;ll integrate faith, truth, and care to give
+                you the tools you need — not just to cope, but to truly
+                thrive in every stage of life.
               </p>
             </Reveal>
           </div>
 
           <Reveal delay={0.45}>
             <div className="mt-10 font-display italic text-3xl text-forest-800">
-              — Kristen
+              — Kristen Truby
             </div>
           </Reveal>
         </div>

@@ -6,21 +6,21 @@ import { Reveal, RevealStagger, RevealItem } from "./Reveal";
 const PILLARS = [
   {
     icon: BookOpenText,
-    title: "Rooted in Scripture",
+    title: "Fulfil Your Purpose",
     copy:
-      "Every session starts in the Word. Before we strategize, we listen — because transformation flows from truth, not technique.",
+      "Life can feel overwhelming, but you don&rsquo;t have to navigate it alone. Together we uncover what God uniquely designed you to do and build a path toward it.",
   },
   {
     icon: HeartHandshake,
-    title: "Built on honesty",
+    title: "Overcome Challenges",
     copy:
-      "No pretending, no performance. We name what&rsquo;s actually going on — the good, the shameful, the tender — and let grace do its work.",
+      "Through strong wisdom and Biblical truth, we face the hard things head-on — naming obstacles, shifting perspective, and finding the strength that was already inside you.",
   },
   {
     icon: Footprints,
-    title: "Walked together",
+    title: "Grow in Confidence",
     copy:
-      "You won&rsquo;t journey alone. Between sessions, you&rsquo;ll have prompts, check-ins, and a real person in your corner praying for you by name.",
+      "Build a stronger, more confident future version of yourself. Your spiritual growth and personal transformation come together in a space that is both healing and holy.",
   },
 ];
 
@@ -38,18 +38,19 @@ export function Method() {
               <span>The Method</span>
             </div>
             <h2 className="font-display mt-8 text-5xl md:text-7xl leading-[0.95] text-forest-950">
-              The <em className="italic text-forest-700">architect</em>
+              Walk in <em className="italic text-forest-700">Purpose,</em>
               <br />
-              of a surrendered life.
+              Live in Faith.
             </h2>
           </Reveal>
 
           <Reveal className="md:col-span-5 md:col-start-8 md:pt-10" delay={0.1}>
             <p className="text-ink-700 leading-relaxed text-[17px]">
-              Every woman I&apos;ve coached has come wanting clarity.
-              What they&apos;ve left with is something better: a frame
-              strong enough to hold a whole life. Three pillars, one
-              steady foundation — Christ.
+              Life can feel overwhelming, but you still have what it takes —
+              because God placed it inside you. As a Christian life coach,
+              I help you fulfill your purpose, overcome challenges with
+              strong wisdom, and build a stronger, more confident future
+              version of yourself.
             </p>
           </Reveal>
         </div>
