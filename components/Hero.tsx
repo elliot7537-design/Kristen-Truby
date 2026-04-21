@@ -1,11 +1,49 @@
 "use client";
 
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, type Variants, useReducedMotion } from "framer-motion";
+import { ArrowRight, MoveDown } from "lucide-react";
 import { EASE, EASE_REVEAL } from "@/lib/motion";
+import { CircleBadge } from "./CircleBadge";
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: EASE },
+  },
+};
+
+const charFade: Variants = {
+  hidden: { opacity: 0, y: 48, rotate: 3 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: 0,
+    transition: { duration: 0.9, ease: EASE },
+  },
+};
+
+function SplitWord({ word, emphasize }: { word: string; emphasize?: boolean }) {
+  return (
+    <span className="inline-block whitespace-nowrap">
+      {word.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          variants={charFade}
+          className={`inline-block ${emphasize ? "italic text-sage-300" : ""}`}
+        >
+          {ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export function Hero() {
+  const reduce = useReducedMotion();
+
   return (
     <section
       id="top"
@@ -13,12 +51,21 @@ export function Hero() {
     >
       <div
         aria-hidden
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        className="absolute inset-0 opacity-[0.08] pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 20% 30%, rgba(185,201,181,0.3), transparent 50%), radial-gradient(circle at 80% 70%, rgba(184,146,86,0.2), transparent 60%)",
+            "radial-gradient(circle at 20% 30%, rgba(185,201,181,0.4), transparent 50%), radial-gradient(circle at 80% 70%, rgba(184,146,86,0.25), transparent 60%)",
         }}
       />
+
+      <div
+        aria-hidden
+        className="absolute left-6 top-28 hidden lg:flex items-center gap-3 text-[10px] uppercase tracking-widest-xl text-cream-100/40 rotate-90 origin-top-left"
+        style={{ transformOrigin: "top left" }}
+      >
+        <span className="h-px w-10 bg-cream-100/30" />
+        <span>Est. 2018 · Faith-Based Guidance</span>
+      </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid md:grid-cols-12 gap-10 md:gap-14 items-end min-h-screen">
         <motion.div
@@ -39,8 +86,25 @@ export function Hero() {
             sizes="(min-width: 768px) 40vw, 100vw"
             className="object-cover"
           />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1.4, ease: EASE }}
+            className="absolute -right-10 md:-right-14 -top-10 md:-top-14 w-32 h-32 md:w-44 md:h-44 hidden sm:block"
+          >
+            <CircleBadge />
+          </motion.div>
+
+          <div className="absolute top-4 left-4 flex items-center gap-2 bg-forest-950/80 backdrop-blur-sm px-3 py-2 border border-cream-100/15">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+            <span className="text-[10px] uppercase tracking-widest-xl text-cream-50">
+              Now Accepting New Clients
+            </span>
+          </div>
+
           <div className="absolute bottom-4 left-4 text-[10px] uppercase tracking-widest-xl text-cream-50/80">
-            Nashville, TN
+            Certified · Christ-Centered
           </div>
         </motion.div>
 
@@ -49,7 +113,12 @@ export function Hero() {
           animate="visible"
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.4 } },
+            visible: {
+              transition: {
+                staggerChildren: reduce ? 0 : 0.04,
+                delayChildren: 0.4,
+              },
+            },
           }}
           className="md:col-span-7 flex flex-col"
         >
@@ -61,18 +130,25 @@ export function Hero() {
             <span>Rooted &amp; Rising · Life Coaching</span>
           </motion.div>
 
-          <motion.h1
-            variants={fadeUp}
-            className="font-display text-cream-50 mt-8 text-[54px] leading-[0.95] sm:text-7xl md:text-[92px] md:leading-[0.94]"
-          >
-            Supporting you{" "}
-            <em className="italic text-sage-300">through</em>
-            <br />
-            every stage of{" "}
-            <span className="inline-block bg-cream-50 text-forest-950 px-3 italic font-medium">
-              life.
+          <h1 className="font-display text-cream-50 mt-8 text-[52px] leading-[0.95] sm:text-7xl md:text-[92px] md:leading-[0.94]">
+            <span className="block">
+              <SplitWord word="Supporting" />{" "}
+              <SplitWord word="you" />
             </span>
-          </motion.h1>
+            <span className="block">
+              <SplitWord word="through" emphasize />{" "}
+              <SplitWord word="every" />
+            </span>
+            <span className="block">
+              <SplitWord word="stage" /> <SplitWord word="of" />{" "}
+              <motion.span
+                variants={charFade}
+                className="inline-block bg-cream-50 text-forest-950 px-3 italic font-medium"
+              >
+                life.
+              </motion.span>
+            </span>
+          </h1>
 
           <motion.p
             variants={fadeUp}
@@ -82,8 +158,9 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-            <a
+            <motion.a
               href="#contact"
+              whileHover={reduce ? undefined : { y: -2 }}
               className="group inline-flex items-center gap-3 bg-cream-50 text-forest-950 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-sage-300 transition-colors"
             >
               Book Now
@@ -91,18 +168,19 @@ export function Hero() {
                 size={14}
                 className="transition-transform duration-300 group-hover:translate-x-1"
               />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="#method"
+              whileHover={reduce ? undefined : { y: -2 }}
               className="inline-flex items-center gap-3 border border-cream-100/30 px-7 py-4 text-[11px] uppercase tracking-widest-xl text-cream-50 hover:border-cream-50 hover:bg-cream-50/5 transition-all"
             >
               Learn More
-            </a>
+            </motion.a>
           </motion.div>
 
           <motion.div
             variants={fadeUp}
-            className="mt-16 md:mt-20 grid grid-cols-3 max-w-lg border-t border-cream-100/15 pt-6 gap-4"
+            className="mt-16 md:mt-20 grid grid-cols-3 max-w-xl border-t border-cream-100/15 pt-6 gap-4"
           >
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
@@ -130,16 +208,22 @@ export function Hero() {
             </div>
           </motion.div>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-cream-100/50"
+        >
+          <span className="text-[10px] uppercase tracking-widest-xl">Scroll</span>
+          <MoveDown
+            size={16}
+            strokeWidth={1.25}
+            className="animate-bounce"
+            style={{ animationDuration: "2.5s" }}
+          />
+        </motion.div>
       </div>
     </section>
   );
 }
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: EASE },
-  },
-};
