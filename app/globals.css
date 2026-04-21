@@ -80,6 +80,50 @@
     mix-blend-mode: overlay;
     opacity: 0.6;
   }
+
+  .text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+
+  .animate-marquee {
+    animation: marquee 42s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 48s linear infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 24s linear infinite;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
