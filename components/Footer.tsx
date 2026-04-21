@@ -9,17 +9,23 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal className="max-w-3xl">
           <p className="font-display italic text-3xl md:text-5xl leading-tight text-cream-50">
-            &ldquo;Come to me, all who are weary and burdened, and I will
-            give you rest.&rdquo;
+            &ldquo;But those who hope in the Lord will renew their strength.
+            They will soar on wings like eagles; they will run and not grow
+            weary, they will walk and not be faint.&rdquo;
           </p>
           <p className="mt-5 text-[10px] uppercase tracking-widest-xl text-sage-300">
-            — Matthew 11:28
+            — Isaiah 40:31
           </p>
         </Reveal>
 
         <div className="mt-16 md:mt-24 border-t border-cream-100/15 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="font-display text-xl text-cream-50">
-            Kristen <span className="italic text-sage-300">Truby</span>
+          <div className="flex flex-col">
+            <div className="font-display text-xl text-cream-50">
+              Rooted &amp; <span className="italic text-sage-300">Rising</span>
+            </div>
+            <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/50 mt-1">
+              Life Coaching · Kristen Truby
+            </div>
           </div>
 
           <div className="flex items-center gap-6">
@@ -35,7 +41,7 @@ export function Footer() {
           </div>
 
           <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/40">
-            © {new Date().getFullYear()} Kristen Truby · All rights reserved
+            © {new Date().getFullYear()} Rooted &amp; Rising Life Coaching · All rights reserved
           </div>
         </div>
       </div>

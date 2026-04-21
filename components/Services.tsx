@@ -7,22 +7,22 @@ import { EASE } from "@/lib/motion";
 
 const OFFERINGS = [
   {
-    kind: "01 · Foundation",
-    title: "1:1 Coaching",
-    copy: "Twelve weeks, one-on-one. Weekly sessions rooted in Scripture, bi-weekly prayer walks, and a plan built for the season you&rsquo;re actually in.",
-    price: "From $2,400",
+    kind: "01 · Individual",
+    title: "1:1 Life Coaching",
+    copy: "Personal, one-on-one coaching sessions tailored to your specific season of life. We&rsquo;ll work through challenges, clarify your purpose, and build a plan rooted in Biblical truth.",
+    cta: "Book an Appointment",
   },
   {
-    kind: "02 · Community",
-    title: "Group Circles",
-    copy: "Eight-woman cohorts that meet for eight weeks. A quiet room to ask the questions you can&rsquo;t ask out loud anywhere else.",
-    price: "From $675",
+    kind: "02 · Online",
+    title: "Virtual Sessions",
+    copy: "Coaching is available online so you can grow from anywhere. Our secure client forms are completed before your appointment so we can jump straight into what matters most.",
+    cta: "Get Started Online",
   },
   {
-    kind: "03 · Intensive",
-    title: "Faith & Purpose Intensive",
-    copy: "A two-day in-person retreat to uncover calling, name the lies you&rsquo;ve been agreeing with, and leave with a written rule of life.",
-    price: "From $1,200",
+    kind: "03 · Free Intro",
+    title: "Free Consultation",
+    copy: "Not sure if coaching is right for you? Start with a free 30-minute consultation. No pressure &mdash; just an honest conversation about where you are and where God is calling you.",
+    cta: "Book Free Session",
   },
 ];
 
@@ -46,9 +46,9 @@ export function Services() {
           </Reveal>
           <Reveal className="md:col-span-6 md:col-start-7" delay={0.1}>
             <p className="text-ink-700 leading-relaxed text-[17px] max-w-lg">
-              Every offering is Christ-centered, Scripture-saturated, and
-              built to meet you where you are. Choose the rhythm that fits
-              your season — we&apos;ll refine the rest together.
+              Every session is Christ-centered and built to meet you where you
+              are. If you have questions, call or email and we&apos;ll respond as
+              soon as possible. We can&apos;t wait to meet you.
             </p>
           </Reveal>
         </div>
@@ -71,15 +71,12 @@ export function Services() {
                   className="mt-5 text-ink-700 leading-relaxed text-[15px] flex-1"
                   dangerouslySetInnerHTML={{ __html: o.copy }}
                 />
-                <div className="mt-8 flex items-center justify-between border-t border-ink-900/10 pt-5">
-                  <span className="text-[11px] uppercase tracking-widest-xl text-forest-800">
-                    {o.price}
-                  </span>
+                <div className="mt-8 border-t border-ink-900/10 pt-5">
                   <a
                     href="#contact"
                     className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest-xl text-forest-800 group-hover:text-gold-500 transition-colors"
                   >
-                    Learn more
+                    {o.cta}
                     <ArrowUpRight
                       size={14}
                       className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

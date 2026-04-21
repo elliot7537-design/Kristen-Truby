@@ -58,18 +58,19 @@ export function Hero() {
             className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300"
           >
             <span className="h-px w-8 bg-sage-300/60" />
-            <span>Kristen Truby · Est. 2018</span>
+            <span>Rooted &amp; Rising · Life Coaching</span>
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
             className="font-display text-cream-50 mt-8 text-[54px] leading-[0.95] sm:text-7xl md:text-[92px] md:leading-[0.94]"
           >
-            Walk in <em className="italic text-sage-300">truth.</em>
+            Supporting you{" "}
+            <em className="italic text-sage-300">through</em>
             <br />
-            Live in{" "}
+            every stage of{" "}
             <span className="inline-block bg-cream-50 text-forest-950 px-3 italic font-medium">
-              peace.
+              life.
             </span>
           </motion.h1>
 
@@ -77,9 +78,7 @@ export function Hero() {
             variants={fadeUp}
             className="mt-8 max-w-xl text-cream-100/80 text-base md:text-lg leading-relaxed"
           >
-            Christian life coaching for women ready to trade the noise for
-            surrender — and build a life rooted in God&apos;s promises, not
-            the world&apos;s pressure.
+            We don&apos;t give you strength — we help you remember your own.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
@@ -87,7 +86,7 @@ export function Hero() {
               href="#contact"
               className="group inline-flex items-center gap-3 bg-cream-50 text-forest-950 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-sage-300 transition-colors"
             >
-              Start Your Journey
+              Book Now
               <ArrowRight
                 size={14}
                 className="transition-transform duration-300 group-hover:translate-x-1"
@@ -97,28 +96,36 @@ export function Hero() {
               href="#method"
               className="inline-flex items-center gap-3 border border-cream-100/30 px-7 py-4 text-[11px] uppercase tracking-widest-xl text-cream-50 hover:border-cream-50 hover:bg-cream-50/5 transition-all"
             >
-              The Method
+              Learn More
             </a>
           </motion.div>
 
           <motion.div
             variants={fadeUp}
-            className="mt-16 md:mt-20 grid grid-cols-2 max-w-md border-t border-cream-100/15 pt-6"
+            className="mt-16 md:mt-20 grid grid-cols-3 max-w-lg border-t border-cream-100/15 pt-6 gap-4"
           >
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
-                500<span className="text-gold-500">+</span>
+                26<span className="text-gold-500">+</span>
               </div>
               <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
-                Women Guided
+                Clients
               </div>
             </div>
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
-                06<span className="text-gold-500">+</span>
+                M.S.
               </div>
               <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
-                Years Coaching
+                Sociology
+              </div>
+            </div>
+            <div>
+              <div className="font-display text-4xl md:text-5xl text-cream-50">
+                98<span className="text-gold-500">%</span>
+              </div>
+              <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
+                Satisfaction
               </div>
             </div>
           </motion.div>

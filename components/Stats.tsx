@@ -13,9 +13,9 @@ type Stat = {
 };
 
 const STATS: Stat[] = [
-  { value: 500, suffix: "+", label: "Women guided" },
-  { value: 6, suffix: "+", label: "Years coaching", pad: 2 },
-  { value: 12, label: "Countries reached", pad: 2 },
+  { value: 26, suffix: "+", label: "Clients served", pad: 2 },
+  { value: 20, suffix: "+", label: "Years of experience", pad: 2 },
+  { value: 98, suffix: "%", label: "Client satisfaction" },
 ];
 
 function StatItem({ stat, start }: { stat: Stat; start: boolean }) {
@@ -62,7 +62,7 @@ export function Stats() {
             <span>By the numbers</span>
           </div>
           <h2 className="font-display mt-6 text-3xl md:text-4xl text-cream-50 leading-snug">
-            Quiet work, over time, <em className="italic text-sage-300">adds up</em>.
+            Real change starts <em className="italic text-sage-300">within.</em>
           </h2>
         </motion.div>
 
