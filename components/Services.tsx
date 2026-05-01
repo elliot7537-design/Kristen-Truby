@@ -74,7 +74,7 @@ export function Services() {
                 <div className="mt-8 border-t border-ink-900/10 pt-5">
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest-xl text-forest-800 group-hover:text-gold-500 transition-colors"
+                    className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest-xl text-forest-800 group-hover:text-forest-500 transition-colors"
                   >
                     {o.cta}
                     <ArrowUpRight

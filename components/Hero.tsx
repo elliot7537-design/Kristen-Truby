@@ -54,7 +54,7 @@ export function Hero() {
         className="absolute inset-0 opacity-[0.08] pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 20% 30%, rgba(185,201,181,0.4), transparent 50%), radial-gradient(circle at 80% 70%, rgba(184,146,86,0.25), transparent 60%)",
+            "radial-gradient(circle at 20% 30%, rgba(185,201,181,0.4), transparent 50%), radial-gradient(circle at 80% 70%, rgba(77,132,102,0.25), transparent 60%)",
         }}
       />
 
@@ -97,7 +97,7 @@ export function Hero() {
           </motion.div>
 
           <div className="absolute top-4 left-4 flex items-center gap-2 bg-forest-950/80 backdrop-blur-sm px-3 py-2 border border-cream-100/15">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-forest-500 animate-pulse" />
             <span className="text-[10px] uppercase tracking-widest-xl text-cream-50">
               Now Accepting New Clients
             </span>
@@ -184,7 +184,7 @@ export function Hero() {
           >
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
-                26<span className="text-gold-500">+</span>
+                26<span className="text-forest-500">+</span>
               </div>
               <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
                 Clients
@@ -200,7 +200,7 @@ export function Hero() {
             </div>
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
-                98<span className="text-gold-500">%</span>
+                98<span className="text-forest-500">%</span>
               </div>
               <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
                 Satisfaction
