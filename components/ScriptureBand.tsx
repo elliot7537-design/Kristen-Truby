@@ -78,7 +78,7 @@ export function ScriptureBand() {
           transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
           className="mt-12 md:mt-16 flex items-center gap-4"
         >
-          <span className="h-px w-8 bg-forest-400" />
+          <span className="h-px w-8 bg-sage-400" />
           <span className="text-[11px] uppercase tracking-widest-xl text-sage-400">
             Isaiah 40:31
           </span>
