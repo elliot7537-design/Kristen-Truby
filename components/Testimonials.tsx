@@ -45,7 +45,7 @@ export function Testimonials() {
           {TESTIMONIALS.map((t) => (
             <RevealItem key={t.name}>
               <figure className="bg-forest-900 p-8 md:p-10 h-full flex flex-col">
-                <Quote className="text-sage-400" size={28} strokeWidth={1.25} />
+                <Quote className="text-sage-100" size={28} strokeWidth={1.25} />
                 <blockquote className="font-display italic mt-6 text-xl md:text-2xl leading-snug text-cream-50 flex-1">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
