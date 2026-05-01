@@ -27,12 +27,12 @@ export function Marquee({
       ? "animate-marquee"
       : "animate-marquee-reverse";
 
-  const bg = tone === "dark" ? "bg-sage-300 text-forest-950" : "bg-cream-100 text-forest-950";
-  const sepColor = tone === "dark" ? "text-forest-600" : "text-forest-600";
+  const bg = tone === "dark" ? "bg-forest-500 text-cream-50" : "bg-cream-100 text-cream-50";
+  const sepColor = tone === "dark" ? "text-sage-300" : "text-sage-300";
 
   return (
     <div
-      className={`relative overflow-hidden border-y border-forest-950/10 ${bg} ${className}`}
+      className={`relative overflow-hidden border-y border-cream-50/10 ${bg} ${className}`}
     >
       <div className={`flex whitespace-nowrap py-7 md:py-8 will-change-transform ${animClass}`}>
         {loop.map((item, i) => (
