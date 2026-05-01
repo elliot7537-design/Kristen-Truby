@@ -90,13 +90,13 @@ export function Method() {
                     {p.num}
                   </span>
                   <p.icon
-                    className="text-forest-600 transition-all duration-500 group-hover:text-forest-500 group-hover:rotate-[-6deg]"
+                    className="text-forest-600 transition-all duration-500 group-hover:text-forest-400 group-hover:rotate-[-6deg]"
                     size={28}
                     strokeWidth={1.25}
                   />
                 </div>
 
-                <div className="h-px w-12 bg-forest-700 mb-6 transition-all duration-500 group-hover:w-24 group-hover:bg-forest-500" />
+                <div className="h-px w-12 bg-forest-700 mb-6 transition-all duration-500 group-hover:w-24 group-hover:bg-forest-400" />
 
                 <h3 className="font-display text-3xl md:text-4xl text-forest-950 leading-tight">
                   {p.title}
