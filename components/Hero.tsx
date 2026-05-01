@@ -32,7 +32,7 @@ function SplitWord({ word, emphasize }: { word: string; emphasize?: boolean }) {
         <motion.span
           key={i}
           variants={charFade}
-          className={`inline-block ${emphasize ? "italic text-sage-300" : ""}`}
+          className={`inline-block ${emphasize ? "italic text-forest-700" : ""}`}
         >
           {ch}
         </motion.span>
@@ -47,23 +47,23 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen bg-forest-950 text-cream-50 overflow-hidden grain"
+      className="relative min-h-screen bg-sage-300 text-forest-950 overflow-hidden grain"
     >
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.08] pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 20% 30%, rgba(185,201,181,0.4), transparent 50%), radial-gradient(circle at 80% 70%, rgba(77,132,102,0.25), transparent 60%)",
+            "radial-gradient(circle at 20% 30%, rgba(42,82,57,0.2), transparent 50%), radial-gradient(circle at 80% 70%, rgba(42,82,57,0.15), transparent 60%)",
         }}
       />
 
       <div
         aria-hidden
-        className="absolute left-6 top-28 hidden lg:flex items-center gap-3 text-[10px] uppercase tracking-widest-xl text-cream-100/40 rotate-90 origin-top-left"
+        className="absolute left-6 top-28 hidden lg:flex items-center gap-3 text-[10px] uppercase tracking-widest-xl text-forest-800/40 rotate-90 origin-top-left"
         style={{ transformOrigin: "top left" }}
       >
-        <span className="h-px w-10 bg-cream-100/30" />
+        <span className="h-px w-10 bg-forest-800/30" />
         <span>Est. 2018 · Faith-Based Guidance</span>
       </div>
 
@@ -76,7 +76,7 @@ export function Hero() {
             ease: EASE_REVEAL,
             delay: 0.1,
           }}
-          className="md:col-span-5 relative aspect-[3/4] w-full bg-forest-900"
+          className="md:col-span-5 relative aspect-[3/4] w-full bg-sage-200"
         >
           <Image
             src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80"
@@ -97,7 +97,7 @@ export function Hero() {
           </motion.div>
 
           <div className="absolute top-4 left-4 flex items-center gap-2 bg-forest-950/80 backdrop-blur-sm px-3 py-2 border border-cream-100/15">
-            <span className="w-1.5 h-1.5 rounded-full bg-sage-100 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-sage-300 animate-pulse" />
             <span className="text-[10px] uppercase tracking-widest-xl text-cream-50">
               Now Accepting New Clients
             </span>
@@ -124,13 +124,13 @@ export function Hero() {
         >
           <motion.div
             variants={fadeUp}
-            className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300"
+            className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-700"
           >
-            <span className="h-px w-8 bg-sage-300/60" />
+            <span className="h-px w-8 bg-forest-700/60" />
             <span>Rooted &amp; Rising · Life Coaching</span>
           </motion.div>
 
-          <h1 className="font-display text-cream-50 mt-8 text-[52px] leading-[0.95] sm:text-7xl md:text-[92px] md:leading-[0.94]">
+          <h1 className="font-display text-forest-950 mt-8 text-[52px] leading-[0.95] sm:text-7xl md:text-[92px] md:leading-[0.94]">
             <span className="block">
               <SplitWord word="Supporting" />{" "}
               <SplitWord word="you" />
@@ -143,7 +143,7 @@ export function Hero() {
               <SplitWord word="stage" /> <SplitWord word="of" />{" "}
               <motion.span
                 variants={charFade}
-                className="inline-block bg-cream-50 text-forest-950 px-3 italic font-medium"
+                className="inline-block bg-forest-950 text-cream-50 px-3 italic font-medium"
               >
                 life.
               </motion.span>
@@ -152,7 +152,7 @@ export function Hero() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-8 max-w-xl text-cream-100/80 text-base md:text-lg leading-relaxed"
+            className="mt-8 max-w-xl text-forest-900/80 text-base md:text-lg leading-relaxed"
           >
             We don&apos;t give you strength — we help you remember your own.
           </motion.p>
@@ -161,7 +161,7 @@ export function Hero() {
             <motion.a
               href="#contact"
               whileHover={reduce ? undefined : { y: -2 }}
-              className="group inline-flex items-center gap-3 bg-cream-50 text-forest-950 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-sage-300 transition-colors"
+              className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-800 transition-colors"
             >
               Book Now
               <ArrowRight
@@ -172,7 +172,7 @@ export function Hero() {
             <motion.a
               href="#method"
               whileHover={reduce ? undefined : { y: -2 }}
-              className="inline-flex items-center gap-3 border border-cream-100/30 px-7 py-4 text-[11px] uppercase tracking-widest-xl text-cream-50 hover:border-cream-50 hover:bg-cream-50/5 transition-all"
+              className="inline-flex items-center gap-3 border border-forest-950/30 px-7 py-4 text-[11px] uppercase tracking-widest-xl text-forest-950 hover:border-forest-950 hover:bg-forest-950/5 transition-all"
             >
               Learn More
             </motion.a>
@@ -180,29 +180,29 @@ export function Hero() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-16 md:mt-20 grid grid-cols-3 max-w-xl border-t border-cream-100/15 pt-6 gap-4"
+            className="mt-16 md:mt-20 grid grid-cols-3 max-w-xl border-t border-forest-950/15 pt-6 gap-4"
           >
             <div>
-              <div className="font-display text-4xl md:text-5xl text-cream-50">
-                26<span className="text-sage-100">+</span>
+              <div className="font-display text-4xl md:text-5xl text-forest-950">
+                26<span className="text-forest-600">+</span>
               </div>
-              <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
+              <div className="text-[10px] uppercase tracking-widest-xl text-forest-800/60 mt-2">
                 Clients
               </div>
             </div>
             <div>
-              <div className="font-display text-4xl md:text-5xl text-cream-50">
+              <div className="font-display text-4xl md:text-5xl text-forest-950">
                 M.S.
               </div>
-              <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
+              <div className="text-[10px] uppercase tracking-widest-xl text-forest-800/60 mt-2">
                 Sociology
               </div>
             </div>
             <div>
-              <div className="font-display text-4xl md:text-5xl text-cream-50">
-                98<span className="text-sage-100">%</span>
+              <div className="font-display text-4xl md:text-5xl text-forest-950">
+                98<span className="text-forest-600">%</span>
               </div>
-              <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
+              <div className="text-[10px] uppercase tracking-widest-xl text-forest-800/60 mt-2">
                 Satisfaction
               </div>
             </div>
@@ -213,7 +213,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-cream-100/50"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-forest-800/50"
         >
           <span className="text-[10px] uppercase tracking-widest-xl">Scroll</span>
           <MoveDown

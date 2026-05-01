@@ -15,23 +15,23 @@ const HOURS = [
 
 export function Footer() {
   return (
-    <footer className="relative bg-forest-950 text-cream-50 pt-20 md:pt-28 pb-10 overflow-hidden grain">
+    <footer className="relative bg-sage-300 text-forest-950 pt-20 md:pt-28 pb-10 overflow-hidden grain">
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal>
-          <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300 mb-8">
-            <span className="h-px w-8 bg-sage-300/60" />
+          <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-700 mb-8">
+            <span className="h-px w-8 bg-forest-700/60" />
             <span>Availability</span>
           </div>
         </Reveal>
 
-        <RevealStagger className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-px bg-cream-100/10 mb-20 md:mb-28">
+        <RevealStagger className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-px bg-forest-950/10 mb-20 md:mb-28">
           {HOURS.map((h) => (
             <RevealItem key={h.day}>
-              <div className="bg-forest-950 p-5 md:p-6 h-full flex flex-col justify-between min-h-[110px]">
-                <div className="text-[10px] uppercase tracking-widest-xl text-sage-300">
+              <div className="bg-sage-300 p-5 md:p-6 h-full flex flex-col justify-between min-h-[110px]">
+                <div className="text-[10px] uppercase tracking-widest-xl text-forest-700">
                   {h.day}
                 </div>
-                <div className="font-display text-base md:text-lg text-cream-50 mt-3 leading-snug">
+                <div className="font-display text-base md:text-lg text-forest-950 mt-3 leading-snug">
                   {h.time}
                 </div>
               </div>
@@ -41,30 +41,30 @@ export function Footer() {
 
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 mb-16 md:mb-20">
           <Reveal className="md:col-span-7">
-            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300 mb-6">
-              <span className="h-px w-8 bg-sage-300/60" />
+            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-700 mb-6">
+              <span className="h-px w-8 bg-forest-700/60" />
               <span>A word for the journey</span>
             </div>
-            <p className="font-display italic text-3xl md:text-5xl leading-[1.1] text-cream-50">
+            <p className="font-display italic text-3xl md:text-5xl leading-[1.1] text-forest-950">
               &ldquo;But those who hope in the Lord will renew their strength.
               They will soar on wings like eagles; they will run and not grow
               weary, they will walk and not be faint.&rdquo;
             </p>
-            <p className="mt-5 text-[10px] uppercase tracking-widest-xl text-sage-100">
+            <p className="mt-5 text-[10px] uppercase tracking-widest-xl text-forest-600">
               — Isaiah 40:31
             </p>
           </Reveal>
 
           <Reveal className="md:col-span-4 md:col-start-9" delay={0.1}>
-            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300 mb-6">
-              <span className="h-px w-8 bg-sage-300/60" />
+            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-700 mb-6">
+              <span className="h-px w-8 bg-forest-700/60" />
               <span>Get in touch</span>
             </div>
-            <ul className="space-y-4 text-cream-100/85">
+            <ul className="space-y-4 text-forest-900/85">
               <li>
                 <a
                   href="mailto:hello@rootedandrising.com"
-                  className="flex items-center gap-3 hover:text-sage-100 transition-colors"
+                  className="flex items-center gap-3 hover:text-forest-600 transition-colors"
                 >
                   <Mail size={16} strokeWidth={1.5} />
                   <span className="text-sm tracking-wide">
@@ -75,7 +75,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+1"
-                  className="flex items-center gap-3 hover:text-sage-100 transition-colors"
+                  className="flex items-center gap-3 hover:text-forest-600 transition-colors"
                 >
                   <Phone size={16} strokeWidth={1.5} />
                   <span className="text-sm tracking-wide">
@@ -83,7 +83,7 @@ export function Footer() {
                   </span>
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-cream-100/70">
+              <li className="flex items-center gap-3 text-forest-900/70">
                 <MapPin size={16} strokeWidth={1.5} />
                 <span className="text-sm tracking-wide">In-person &amp; virtual</span>
               </li>
@@ -91,12 +91,12 @@ export function Footer() {
           </Reveal>
         </div>
 
-        <div className="border-t border-cream-100/15 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="border-t border-forest-950/15 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex flex-col">
-            <div className="font-display text-2xl text-cream-50">
-              Rooted &amp; <span className="italic text-sage-300">Rising</span>
+            <div className="font-display text-2xl text-forest-950">
+              Rooted &amp; <span className="italic text-forest-700">Rising</span>
             </div>
-            <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/50 mt-1">
+            <div className="text-[10px] uppercase tracking-widest-xl text-forest-800/50 mt-1">
               Life Coaching · Kristen Truby
             </div>
           </div>
@@ -113,7 +113,7 @@ export function Footer() {
             </SocialLink>
           </div>
 
-          <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/40">
+          <div className="text-[10px] uppercase tracking-widest-xl text-forest-800/40">
             © {new Date().getFullYear()} Rooted &amp; Rising · All rights reserved
           </div>
         </div>
@@ -135,7 +135,7 @@ function SocialLink({
     <a
       href={href}
       aria-label={label}
-      className="text-cream-100/70 hover:text-sage-100 transition-colors"
+      className="text-forest-900/70 hover:text-forest-600 transition-colors"
     >
       {children}
     </a>
