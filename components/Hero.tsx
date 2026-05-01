@@ -97,7 +97,7 @@ export function Hero() {
           </motion.div>
 
           <div className="absolute top-4 left-4 flex items-center gap-2 bg-forest-950/80 backdrop-blur-sm px-3 py-2 border border-cream-100/15">
-            <span className="w-1.5 h-1.5 rounded-full bg-forest-500 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-forest-400 animate-pulse" />
             <span className="text-[10px] uppercase tracking-widest-xl text-cream-50">
               Now Accepting New Clients
             </span>
@@ -184,7 +184,7 @@ export function Hero() {
           >
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
-                26<span className="text-forest-500">+</span>
+                26<span className="text-forest-400">+</span>
               </div>
               <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
                 Clients
@@ -200,7 +200,7 @@ export function Hero() {
             </div>
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
-                98<span className="text-forest-500">%</span>
+                98<span className="text-forest-400">%</span>
               </div>
               <div className="text-[10px] uppercase tracking-widest-xl text-cream-100/60 mt-2">
                 Satisfaction

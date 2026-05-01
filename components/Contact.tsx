@@ -59,7 +59,7 @@ export function Contact() {
           <Reveal delay={0.3}>
             <a
               href="mailto:hello@rootedandrising.com"
-              className="mt-10 inline-flex items-center gap-3 text-forest-800 hover:text-forest-500 transition-colors"
+              className="mt-10 inline-flex items-center gap-3 text-forest-800 hover:text-forest-400 transition-colors"
             >
               <Mail size={18} strokeWidth={1.5} />
               <span className="text-sm tracking-wide">
