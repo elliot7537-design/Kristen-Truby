@@ -26,7 +26,7 @@ function StatItem({ stat, start }: { stat: Stat; start: boolean }) {
     <div className="py-10 md:py-0 md:px-8 border-t md:border-t-0 md:border-l border-cream-100/15 first:border-t-0 first:border-l-0">
       <div className="font-display text-6xl md:text-[110px] leading-none text-cream-50">
         {padded}
-        <span className="text-forest-400">{stat.suffix ?? ""}</span>
+        <span className="text-sage-400">{stat.suffix ?? ""}</span>
       </div>
       <div className="mt-4 text-[11px] uppercase tracking-widest-xl text-cream-100/60">
         {stat.label}
