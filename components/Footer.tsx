@@ -50,7 +50,7 @@ export function Footer() {
               They will soar on wings like eagles; they will run and not grow
               weary, they will walk and not be faint.&rdquo;
             </p>
-            <p className="mt-5 text-[10px] uppercase tracking-widest-xl text-gold-500">
+            <p className="mt-5 text-[10px] uppercase tracking-widest-xl text-forest-500">
               — Isaiah 40:31
             </p>
           </Reveal>
@@ -64,7 +64,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:hello@rootedandrising.com"
-                  className="flex items-center gap-3 hover:text-gold-500 transition-colors"
+                  className="flex items-center gap-3 hover:text-forest-500 transition-colors"
                 >
                   <Mail size={16} strokeWidth={1.5} />
                   <span className="text-sm tracking-wide">
@@ -75,7 +75,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+1"
-                  className="flex items-center gap-3 hover:text-gold-500 transition-colors"
+                  className="flex items-center gap-3 hover:text-forest-500 transition-colors"
                 >
                   <Phone size={16} strokeWidth={1.5} />
                   <span className="text-sm tracking-wide">
@@ -135,7 +135,7 @@ function SocialLink({
     <a
       href={href}
       aria-label={label}
-      className="text-cream-100/70 hover:text-gold-500 transition-colors"
+      className="text-cream-100/70 hover:text-forest-500 transition-colors"
     >
       {children}
     </a>
