@@ -104,11 +104,11 @@ export function About() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
-                className="relative my-10 pl-8 border-l-2 border-sage-400"
+                className="relative my-10 pl-8 border-l-2 border-sage-100"
               >
                 <Quote
                   size={20}
-                  className="absolute -left-[11px] top-0 bg-cream-50 text-sage-400"
+                  className="absolute -left-[11px] top-0 bg-cream-50 text-sage-100"
                   strokeWidth={1.5}
                 />
                 <blockquote className="font-display italic text-2xl md:text-3xl text-forest-800 leading-[1.25]">
