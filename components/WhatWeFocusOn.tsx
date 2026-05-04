@@ -38,7 +38,8 @@ export function WhatWeFocusOn() {
             src="/images/focus.jpg"
             alt="Peaceful nature — a reminder to pause and reflect"
             fill
-            sizes="(min-width: 768px) 50vw, 100vw"
+            quality={90}
+            sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-forest-950/20" />

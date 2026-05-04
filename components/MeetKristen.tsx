@@ -33,7 +33,8 @@ export function MeetKristen() {
               src="/images/kristen-portrait.jpg"
               alt="Kristen Truby, Christian life coach"
               fill
-              sizes="(min-width: 768px) 50vw, 100vw"
+              quality={90}
+              sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
           </motion.div>
