@@ -78,7 +78,7 @@ export function WhatWeFocusOn() {
             {PILLARS.map((p) => (
               <RevealItem key={p.num} as="li" y={14}>
                 <div className="py-6 flex gap-5">
-                  <span className="font-display italic text-2xl text-forest-400 leading-none mt-1 shrink-0 w-7 text-right select-none">
+                  <span className="font-display italic text-2xl text-forest-600 leading-none mt-1 shrink-0 w-7 text-right select-none">
                     {p.num}
                   </span>
                   <div>

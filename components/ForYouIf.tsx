@@ -47,7 +47,7 @@ export function ForYouIf() {
                   transition={{ duration: 0.3, ease: EASE }}
                   className="group flex items-start gap-5 py-5 border-b border-ink-900/10 cursor-default"
                 >
-                  <span className="font-display italic text-base text-forest-400 leading-none mt-1.5 w-6 shrink-0 text-right select-none">
+                  <span className="font-display italic text-base text-forest-600 leading-none mt-1.5 w-6 shrink-0 text-right select-none">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="font-display text-xl md:text-2xl text-ink-900 leading-snug flex-1 group-hover:text-forest-700 transition-colors duration-300">
