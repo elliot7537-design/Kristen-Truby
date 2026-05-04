@@ -1,26 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest-950: #0e1b14;
-  --color-forest-900: #132a1f;
-  --color-forest-800: #1f3a2b;
-  --color-forest-700: #2a5239;
-  --color-forest-600: #3a6b4e;
-  --color-forest-500: #4d8466;
-  --color-forest-400: #6a9e7f;
-  --color-sage-400: #95ae92;
-  --color-sage-300: #b9c9b5;
-  --color-sage-200: #d5dcd0;
-  --color-sage-100: #eaede8;
-  --color-cream-50: #f7f2e8;
-  --color-cream-100: #f1ead9;
-  --color-cream-200: #e8dfcc;
-  --color-cream-300: #d8ccb4;
-  --color-ink-900: #14181a;
-  --color-ink-700: #3a4043;
-  --color-ink-500: #6b7278;
-  --color-gold-500: #b89256;
-  --color-gold-400: #c9a876;
+  /* Eucalyptus — dusty teal-green, dark to mid tones */
+  --color-forest-950: #152926;
+  --color-forest-900: #1d3a35;
+  --color-forest-800: #274f49;
+  --color-forest-700: #33665e;
+  --color-forest-600: #417d74;
+  --color-forest-500: #528f85;
+  --color-forest-400: #72a8a0;
+
+  /* Eucalyptus — light tones */
+  --color-sage-400: #93bdb8;
+  --color-sage-300: #b5d0cc;
+  --color-sage-200: #d0e3e1;
+  --color-sage-100: #e7f1f0;
+
+  /* White & Champagne Shimmer */
+  --color-cream-50: #ffffff;
+  --color-cream-100: #faf6ef;
+  --color-cream-200: #f2e9d6;
+  --color-cream-300: #e5d8bc;
+
+  /* Taupe — warm gray-brown */
+  --color-ink-900: #2b2420;
+  --color-ink-700: #4e4540;
+  --color-ink-500: #7e7570;
+
+  /* Champagne Shimmer accent */
+  --color-gold-500: #c4a55c;
+  --color-gold-400: #d4bc7e;
 
   --font-display: var(--font-cormorant), "Cormorant Garamond", serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -46,7 +55,7 @@
   }
 
   ::selection {
-    background: var(--color-forest-800);
+    background: var(--color-forest-700);
     color: var(--color-cream-50);
   }
 

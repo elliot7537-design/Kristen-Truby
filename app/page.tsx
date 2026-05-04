@@ -2,9 +2,10 @@ import { Nav } from "@/components/Nav";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
-import { FeaturedIn } from "@/components/FeaturedIn";
-import { About } from "@/components/About";
-import { Services } from "@/components/Services";
+import { ForYouIf } from "@/components/ForYouIf";
+import { WhatWeFocusOn } from "@/components/WhatWeFocusOn";
+import { RootedAndRising } from "@/components/RootedAndRising";
+import { MeetKristen } from "@/components/MeetKristen";
 import { Stats } from "@/components/Stats";
 import { ScriptureBand } from "@/components/ScriptureBand";
 import { Method } from "@/components/Method";
@@ -35,14 +36,15 @@ export default function Home() {
       <Nav />
       <Hero />
       <Marquee items={MARQUEE_PRIMARY} tone="dark" />
-      <FeaturedIn />
-      <About />
-      <Services />
+      <ForYouIf />
+      <WhatWeFocusOn />
+      <RootedAndRising />
+      <MeetKristen />
+      <Testimonials />
       <Marquee items={MARQUEE_SECONDARY} tone="light" direction="right" />
       <Stats />
       <ScriptureBand />
       <Method />
-      <Testimonials />
       <Contact />
       <Footer />
     </main>

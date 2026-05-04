@@ -6,20 +6,14 @@ import { Reveal, RevealStagger, RevealItem } from "./Reveal";
 const TESTIMONIALS = [
   {
     quote:
-      "Kristen Truby's approach works so well for me to grow as a community leader. She has been instrumental in helping me reach my goals. The coaching helped me to gain perspective and greatly challenged me. If you are looking for life coaching from a Christian perspective, look no further. Kristen's support, care, and encouragement mean everything!",
-    name: "Jennifer A.",
+      "I would highly recommend Kristen as a coach. Her warm, person-centered approach makes it easy to open up. Through our sessions, I was able to recognize and work through the thought patterns and barriers that were holding me back from taking action toward my goals. I also found that boundary setting can be complex and confusing, especially with so much information about boundaries available today. I especially appreciated how Kristen helped me understand them in a healthy and faith-based way. Her coaching sessions and presence brought encouragement and a renewed sense of vision for daily life and my new business.",
+    name: "C. Brennan",
     city: "Coaching Client",
   },
   {
     quote:
-      "I would highly recommend Kristen as a warm, person-centered coach. Throughout our sessions, I appreciated the flexibility and understanding she offered throughout the whole process. I especially appreciated that Kristen helped me find clarity and direction in my life. Choosing to make healthy, real choices with her coaching was absolutely life-changing.",
-    name: "Candace D.",
-    city: "Coaching Client",
-  },
-  {
-    quote:
-      "Working with Kristen has been one of the best decisions I've made for my personal growth. She creates a safe, Christ-centered space where you can be completely honest. I walked away with clarity, confidence, and a renewed sense of who God made me to be.",
-    name: "Michelle T.",
+      "Kristen has provided a safe space for me to be honest about my current stage in my walk. She has been understanding and non-judgmental while also providing guidance and questions that gently challenge me. Her coaching has helped to keep me grounded and encourages me to take forward steps. I think anyone would benefit and grow from Kristen's support, care, and encouragement.",
+    name: "Grateful Client",
     city: "Coaching Client",
   },
 ];
@@ -41,10 +35,10 @@ export function Testimonials() {
           </h2>
         </Reveal>
 
-        <RevealStagger className="mt-16 md:mt-20 grid md:grid-cols-3 gap-px bg-cream-50/10">
+        <RevealStagger className="mt-16 md:mt-20 grid md:grid-cols-2 gap-px bg-cream-50/10">
           {TESTIMONIALS.map((t) => (
             <RevealItem key={t.name}>
-              <figure className="bg-forest-500 p-8 md:p-10 h-full flex flex-col">
+              <figure className="bg-forest-500 p-8 md:p-12 h-full flex flex-col">
                 <Quote className="text-sage-300" size={28} strokeWidth={1.25} />
                 <blockquote className="font-display italic mt-6 text-xl md:text-2xl leading-snug text-cream-50 flex-1">
                   &ldquo;{t.quote}&rdquo;
@@ -59,10 +53,6 @@ export function Testimonials() {
             </RevealItem>
           ))}
         </RevealStagger>
-
-        <p className="mt-8 text-[10px] uppercase tracking-widest-xl text-cream-50/30">
-          * What clients are saying — names used with permission.
-        </p>
       </div>
     </section>
   );
