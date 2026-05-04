@@ -2,6 +2,7 @@ import { Nav } from "@/components/Nav";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
+import { ForYouIf } from "@/components/ForYouIf";
 import { FeaturedIn } from "@/components/FeaturedIn";
 import { About } from "@/components/About";
 import { Services } from "@/components/Services";
@@ -35,6 +36,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Marquee items={MARQUEE_PRIMARY} tone="dark" />
+      <ForYouIf />
       <FeaturedIn />
       <About />
       <Services />
