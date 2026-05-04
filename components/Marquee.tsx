@@ -27,8 +27,8 @@ export function Marquee({
       ? "animate-marquee"
       : "animate-marquee-reverse";
 
-  const bg = tone === "dark" ? "bg-forest-500 text-cream-50" : "bg-cream-100 text-cream-50";
-  const sepColor = tone === "dark" ? "text-sage-300" : "text-sage-300";
+  const bg = tone === "dark" ? "bg-forest-500 text-cream-50" : "bg-cream-100 text-forest-950";
+  const sepColor = tone === "dark" ? "text-sage-300" : "text-forest-600";
 
   return (
     <div
