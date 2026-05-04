@@ -35,7 +35,7 @@ export function WhatWeFocusOn() {
         {/* Left — sticky image */}
         <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
           <Image
-            src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1400&q=80"
+            src="/images/focus.jpg"
             alt="Peaceful nature — a reminder to pause and reflect"
             fill
             sizes="(min-width: 768px) 50vw, 100vw"

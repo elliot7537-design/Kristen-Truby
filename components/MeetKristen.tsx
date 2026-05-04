@@ -30,7 +30,7 @@ export function MeetKristen() {
         <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
           <motion.div style={{ y }} className="absolute inset-0 -top-12 -bottom-12">
             <Image
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80"
+              src="/images/kristen-portrait.jpg"
               alt="Kristen Truby, Christian life coach"
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

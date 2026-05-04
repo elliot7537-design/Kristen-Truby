@@ -79,7 +79,7 @@ export function Hero() {
           className="md:col-span-5 relative aspect-[3/4] w-full bg-sage-200"
         >
           <Image
-            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80"
+            src="/images/kristen-hero.jpg"
             alt="Kristen Truby portrait"
             fill
             priority
