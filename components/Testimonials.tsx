@@ -1,10 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
-import { EASE } from "@/lib/motion";
 
 const TESTIMONIALS = [
   {
@@ -22,34 +18,12 @@ const TESTIMONIALS = [
 ];
 
 export function Testimonials() {
-  const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-80, 80]);
-
   return (
     <section
       id="testimonials"
-      ref={ref}
-      className="relative overflow-hidden py-24 md:py-36"
+      className="bg-cream-200 text-ink-900 py-24 md:py-36"
     >
-      {/* Background image with soft overlay */}
-      <motion.div style={{ y }} className="absolute inset-0 -top-20 -bottom-20 scale-110">
-        <Image
-          src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=2400&q=80"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-      </motion.div>
-      <div className="absolute inset-0 bg-cream-100/88" />
-
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
 
         <Reveal className="mb-16 md:mb-24 flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-600">
           <span className="h-px w-8 bg-forest-600/50" />
