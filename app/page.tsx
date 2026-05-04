@@ -5,7 +5,7 @@ import { Marquee } from "@/components/Marquee";
 import { ForYouIf } from "@/components/ForYouIf";
 import { WhatWeFocusOn } from "@/components/WhatWeFocusOn";
 import { RootedAndRising } from "@/components/RootedAndRising";
-import { Services } from "@/components/Services";
+import { MeetKristen } from "@/components/MeetKristen";
 import { Stats } from "@/components/Stats";
 import { ScriptureBand } from "@/components/ScriptureBand";
 import { Method } from "@/components/Method";
@@ -39,7 +39,7 @@ export default function Home() {
       <ForYouIf />
       <WhatWeFocusOn />
       <RootedAndRising />
-      <Services />
+      <MeetKristen />
       <Marquee items={MARQUEE_SECONDARY} tone="light" direction="right" />
       <Stats />
       <ScriptureBand />
