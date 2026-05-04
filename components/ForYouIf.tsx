@@ -29,7 +29,7 @@ export function ForYouIf() {
           {/* Image — tall, spans 2 rows on left */}
           <div className="md:row-span-2 relative min-h-[280px] md:min-h-0 overflow-hidden bg-forest-800">
             <Image
-              src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1000&q=80"
+              src="/images/for-you.jpg"
               alt="A woman in quiet reflection outdoors"
               fill
               sizes="(min-width: 768px) 33vw, 100vw"
