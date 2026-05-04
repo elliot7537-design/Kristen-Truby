@@ -20,7 +20,7 @@ const MARQUEE_SECONDARY = [
 ];
 
 function Divider() {
-  return <div className="h-3 bg-cream-300" />;
+  return <div className="h-6" />;
 }
 
 export default function Home() {
