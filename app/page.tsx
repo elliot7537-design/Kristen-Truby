@@ -12,11 +12,12 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 const MARQUEE_SECONDARY = [
-  "1:1 Coaching",
-  "Virtual Sessions",
-  "Free Consultation",
-  "Biblical Guidance",
+  "Walk in Purpose",
+  "Live in Faith",
+  "Rooted & Rising",
   "Clarity · Courage · Confidence",
+  "Christ-Centered Coaching",
+  "Renew Your Strength",
 ];
 
 function Divider() {

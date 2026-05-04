@@ -25,11 +25,6 @@ export function Testimonials() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
 
-        <Reveal className="mb-16 md:mb-24 flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-600">
-          <span className="h-px w-8 bg-forest-600/50" />
-          <span>From the women</span>
-        </Reveal>
-
         {/* First testimonial — large pull quote */}
         <Reveal delay={0.1}>
           <figure className="mb-20 md:mb-28">
