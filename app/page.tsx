@@ -3,7 +3,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { ForYouIf } from "@/components/ForYouIf";
-import { FeaturedIn } from "@/components/FeaturedIn";
+import { WhatWeFocusOn } from "@/components/WhatWeFocusOn";
 import { About } from "@/components/About";
 import { Services } from "@/components/Services";
 import { Stats } from "@/components/Stats";
@@ -37,7 +37,7 @@ export default function Home() {
       <Hero />
       <Marquee items={MARQUEE_PRIMARY} tone="dark" />
       <ForYouIf />
-      <FeaturedIn />
+      <WhatWeFocusOn />
       <About />
       <Services />
       <Marquee items={MARQUEE_SECONDARY} tone="light" direction="right" />
