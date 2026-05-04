@@ -40,11 +40,11 @@ export default function Home() {
       <WhatWeFocusOn />
       <RootedAndRising />
       <MeetKristen />
+      <Testimonials />
       <Marquee items={MARQUEE_SECONDARY} tone="light" direction="right" />
       <Stats />
       <ScriptureBand />
       <Method />
-      <Testimonials />
       <Contact />
       <Footer />
     </main>
