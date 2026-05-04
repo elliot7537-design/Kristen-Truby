@@ -1,9 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, RevealStagger, RevealItem } from "./Reveal";
-import { EASE } from "@/lib/motion";
 
 const PILLARS = [
   {
@@ -29,70 +28,82 @@ const PILLARS = [
 ];
 
 export function WhatWeFocusOn() {
-  const reduce = useReducedMotion();
-
   return (
-    <section className="bg-forest-950 text-cream-50 py-24 md:py-36 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+    <section className="bg-cream-50 text-ink-900 overflow-hidden">
+      <div className="grid md:grid-cols-2 min-h-screen">
 
-        <div className="grid md:grid-cols-12 gap-10 md:gap-16 mb-16 md:mb-24">
-          <Reveal className="md:col-span-6">
-            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300">
-              <span className="h-px w-8 bg-sage-300/60" />
+        {/* Left — sticky image */}
+        <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
+          <Image
+            src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1400&q=80"
+            alt="Peaceful nature — a reminder to pause and reflect"
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-forest-950/20" />
+          <div className="absolute bottom-8 left-8 text-[10px] uppercase tracking-widest-xl text-cream-50/70">
+            Rooted &amp; Rising · Est. 2018
+          </div>
+        </div>
+
+        {/* Right — content */}
+        <div className="order-1 md:order-2 px-8 md:px-12 lg:px-16 py-24 md:py-36 flex flex-col justify-center">
+          <Reveal>
+            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-600">
+              <span className="h-px w-8 bg-forest-600/50" />
               <span>The Work</span>
             </div>
-            <h2 className="font-display mt-8 text-5xl md:text-6xl leading-[0.95] text-cream-50">
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <h2 className="font-display mt-8 text-5xl md:text-6xl leading-[0.95] text-forest-950">
               What we{" "}
-              <em className="italic text-sage-300">focus</em> on.
+              <em className="italic text-forest-600">focus</em> on.
             </h2>
           </Reveal>
-          <Reveal className="md:col-span-5 md:col-start-8 flex flex-col justify-end" delay={0.15}>
-            <p className="text-cream-50/70 leading-relaxed text-[17px]">
+
+          <Reveal delay={0.15}>
+            <p className="mt-6 text-ink-700 leading-relaxed text-[17px] max-w-md">
               This isn&rsquo;t about becoming someone new. It&rsquo;s about returning to your foundation and rebuilding from there.
             </p>
           </Reveal>
-        </div>
 
-        <RevealStagger
-          className="grid md:grid-cols-2 gap-px bg-cream-50/10"
-          stagger={0.1}
-          delay={0.1}
-        >
-          {PILLARS.map((p) => (
-            <RevealItem key={p.num}>
-              <motion.div
-                whileHover={reduce ? undefined : { y: -4 }}
-                transition={{ duration: 0.3, ease: EASE }}
-                className="group bg-forest-950 p-8 md:p-10 h-full flex flex-col border border-cream-50/[0.07] hover:border-sage-300/30 transition-colors"
-              >
-                <div className="font-display italic text-5xl md:text-6xl text-sage-300/20 leading-none select-none">
-                  {p.num}
+          <RevealStagger
+            as="ul"
+            className="mt-12 flex flex-col divide-y divide-ink-900/10 border-t border-ink-900/10"
+            stagger={0.1}
+            delay={0.2}
+          >
+            {PILLARS.map((p) => (
+              <RevealItem key={p.num} as="li" y={14}>
+                <div className="py-6 flex gap-5">
+                  <span className="font-display italic text-2xl text-forest-400 leading-none mt-1 shrink-0 w-7 text-right select-none">
+                    {p.num}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl md:text-2xl text-forest-950 leading-snug">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-ink-600 text-[14px] leading-relaxed">
+                      {p.copy}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-display text-2xl md:text-3xl mt-5 text-cream-50 leading-snug">
-                  {p.title}
-                </h3>
-                <p className="mt-4 text-cream-50/60 leading-relaxed text-[15px] flex-1">
-                  {p.copy}
-                </p>
-              </motion.div>
-            </RevealItem>
-          ))}
-        </RevealStagger>
+              </RevealItem>
+            ))}
+          </RevealStagger>
 
-        <Reveal delay={0.3}>
-          <div className="mt-12 flex justify-center">
+          <Reveal delay={0.5}>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-3 border border-cream-50/20 text-cream-50 px-8 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-cream-50/5 hover:border-cream-50/40 transition-all"
+              className="group mt-10 inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors self-start"
             >
               Book a Clarity Call
-              <ArrowRight
-                size={14}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
             </a>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
       </div>
     </section>

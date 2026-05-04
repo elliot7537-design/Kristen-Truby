@@ -22,59 +22,53 @@ export function MeetKristen() {
     <section
       id="meet-kristen"
       ref={ref}
-      className="relative bg-forest-950 text-cream-50 py-24 md:py-36 overflow-hidden"
+      className="relative bg-cream-50 text-ink-900 overflow-hidden"
     >
-      <div
-        aria-hidden
-        className="absolute -left-8 bottom-0 font-display text-cream-50/[0.025] italic text-[180px] md:text-[320px] leading-none pointer-events-none select-none"
-      >
-        Kristen
-      </div>
+      <div className="grid md:grid-cols-2 min-h-screen">
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+        {/* Left — portrait image */}
+        <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
+          <motion.div style={{ y }} className="absolute inset-0 -top-12 -bottom-12">
+            <Image
+              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80"
+              alt="Kristen Truby, Christian life coach"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </motion.div>
 
-        <div className="md:col-span-5 relative">
-          <div className="relative aspect-[4/5] w-full bg-forest-800 overflow-hidden">
-            <motion.div style={{ y }} className="absolute inset-0 -top-12 -bottom-12">
-              <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80"
-                alt="Kristen Truby, Christian life coach"
-                fill
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="object-cover"
-              />
-            </motion.div>
-            <div className="absolute inset-0 bg-forest-950/20" />
+          <div className="absolute top-6 left-6 flex items-center gap-2 bg-cream-50/90 backdrop-blur-sm px-3 py-2 border border-ink-900/10">
+            <span className="w-1.5 h-1.5 rounded-full bg-forest-500 animate-pulse" />
+            <span className="text-[10px] uppercase tracking-widest-xl text-forest-800">
+              Now Accepting Clients
+            </span>
+          </div>
 
-            <div className="absolute top-4 left-4 flex items-center gap-2 bg-forest-950/80 backdrop-blur-sm px-3 py-2 border border-cream-100/15">
-              <span className="w-1.5 h-1.5 rounded-full bg-sage-300 animate-pulse" />
-              <span className="text-[10px] uppercase tracking-widest-xl text-cream-50">
-                Certified Life Coach
-              </span>
-            </div>
-
-            <div className="absolute bottom-4 left-4 text-[10px] uppercase tracking-widest-xl text-cream-50/70">
-              M.S. Sociology · 20+ Years Experience
+          <div className="absolute bottom-6 left-6 bg-cream-50/90 backdrop-blur-sm px-3 py-2 border border-ink-900/10">
+            <div className="text-[10px] uppercase tracking-widest-xl text-forest-700">
+              M.S. Sociology · 20+ Years
             </div>
           </div>
         </div>
 
-        <div className="md:col-span-6 md:col-start-7 md:pt-4">
+        {/* Right — bio text */}
+        <div className="order-1 md:order-2 px-8 md:px-12 lg:px-16 py-24 md:py-36 flex flex-col justify-center">
           <Reveal>
-            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-sage-300">
-              <span className="h-px w-8 bg-sage-300/60" />
+            <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest-xl text-forest-600">
+              <span className="h-px w-8 bg-forest-600/50" />
               <span>Meet Kristen</span>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h2 className="font-display mt-8 text-5xl md:text-6xl leading-[0.95] text-cream-50">
+            <h2 className="font-display mt-8 text-5xl md:text-6xl leading-[0.95] text-forest-950">
               Hi, I&apos;m{" "}
-              <em className="italic text-sage-300">Kristen</em> Truby.
+              <em className="italic text-forest-600">Kristen</em> Truby.
             </h2>
           </Reveal>
 
-          <div className="mt-10 space-y-6 max-w-xl text-cream-50/75 leading-relaxed text-[17px]">
+          <div className="mt-10 space-y-6 text-ink-700 leading-relaxed text-[17px]">
             <Reveal delay={0.15}>
               <p>
                 I&apos;m a certified Christian life coach with a Master&apos;s degree in
@@ -113,10 +107,10 @@ export function MeetKristen() {
           </div>
 
           <Reveal delay={0.4}>
-            <div className="mt-10 border-t border-cream-50/10 pt-8 flex flex-col sm:flex-row sm:items-center gap-6">
+            <div className="mt-10 border-t border-ink-900/10 pt-8 flex flex-col sm:flex-row sm:items-center gap-6">
               <a
                 href="#contact"
-                className="group inline-flex items-center gap-3 bg-cream-50 text-forest-950 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-sage-100 transition-colors"
+                className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors"
               >
                 Book a Clarity Call
                 <ArrowRight
@@ -125,10 +119,10 @@ export function MeetKristen() {
                 />
               </a>
               <div>
-                <div className="font-display italic text-xl text-sage-300">
+                <div className="font-display italic text-xl text-forest-700">
                   — Kristen Truby
                 </div>
-                <div className="text-[10px] uppercase tracking-widest-xl text-cream-50/40 mt-1">
+                <div className="text-[10px] uppercase tracking-widest-xl text-ink-500 mt-1">
                   Founder · Rooted &amp; Rising
                 </div>
               </div>
