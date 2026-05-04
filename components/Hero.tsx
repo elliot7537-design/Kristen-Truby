@@ -130,22 +130,27 @@ export function Hero() {
             <span>Rooted &amp; Rising · Life Coaching</span>
           </motion.div>
 
-          <h1 className="font-display text-cream-50 mt-8 text-[52px] leading-[0.95] sm:text-7xl md:text-[92px] md:leading-[0.94]">
+          <h1 className="font-display text-cream-50 mt-8 text-[40px] leading-[1.05] sm:text-6xl md:text-[72px] md:leading-[1.0]">
             <span className="block">
-              <SplitWord word="Supporting" />{" "}
-              <SplitWord word="you" />
+              <SplitWord word="You're" />{" "}
+              <SplitWord word="not" />{" "}
+              <SplitWord word="starting" />{" "}
+              <SplitWord word="over" emphasize />
+            </span>
+            <span className="block mt-2">
+              <SplitWord word="You're" />{" "}
+              <SplitWord word="returning" />{" "}
+              <SplitWord word="to" />{" "}
+              <SplitWord word="what" />
             </span>
             <span className="block">
-              <SplitWord word="through" emphasize />{" "}
-              <SplitWord word="every" />
-            </span>
-            <span className="block">
-              <SplitWord word="stage" /> <SplitWord word="of" />{" "}
+              <SplitWord word="God" />{" "}
+              <SplitWord word="already" />{" "}
               <motion.span
                 variants={charFade}
                 className="inline-block bg-forest-950 text-cream-50 px-3 italic font-medium"
               >
-                life.
+                placed in you.
               </motion.span>
             </span>
           </h1>
@@ -154,7 +159,7 @@ export function Hero() {
             variants={fadeUp}
             className="mt-8 max-w-xl text-cream-50/80 text-base md:text-lg leading-relaxed"
           >
-            We don&apos;t give you strength — we help you remember your own.
+            Faith-based coaching for women navigating life transitions, feeling stuck, or disconnected&mdash;ready to rebuild with clarity and strength.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
@@ -163,7 +168,7 @@ export function Hero() {
               whileHover={reduce ? undefined : { y: -2 }}
               className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-800 transition-colors"
             >
-              Book Now
+              Book a Clarity Call
               <ArrowRight
                 size={14}
                 className="transition-transform duration-300 group-hover:translate-x-1"
