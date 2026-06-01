@@ -1,6 +1,6 @@
 "use client";
 
-import { Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { Reveal, RevealStagger, RevealItem } from "./Reveal";
 
 const HOURS = [
@@ -101,43 +101,11 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <SocialLink href="#" label="Instagram">
-              <Instagram size={18} strokeWidth={1.5} />
-            </SocialLink>
-            <SocialLink href="#" label="YouTube">
-              <Youtube size={18} strokeWidth={1.5} />
-            </SocialLink>
-            <SocialLink href="mailto:hello@rootedandrising.com" label="Email">
-              <Mail size={18} strokeWidth={1.5} />
-            </SocialLink>
-          </div>
-
           <div className="text-[10px] uppercase tracking-widest-xl text-cream-50/40">
             © {new Date().getFullYear()} Rooted &amp; Rising · All rights reserved
           </div>
         </div>
       </div>
     </footer>
-  );
-}
-
-function SocialLink({
-  href,
-  label,
-  children,
-}: {
-  href: string;
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      className="text-cream-50/70 hover:text-sage-300 transition-colors"
-    >
-      {children}
-    </a>
   );
 }
