@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal, RevealStagger, RevealItem } from "./Reveal";
+import { openCalendly } from "@/lib/calendly";
 
 const PILLARS = [
   {
@@ -96,13 +97,13 @@ export function WhatWeFocusOn() {
           </RevealStagger>
 
           <Reveal delay={0.5}>
-            <a
-              href="#contact"
+            <button
+              onClick={openCalendly}
               className="group mt-10 inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors self-start"
             >
               Book a Clarity Call
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+            </button>
           </Reveal>
         </div>
 
