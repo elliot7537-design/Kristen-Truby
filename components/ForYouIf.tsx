@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal, RevealStagger, RevealItem } from "./Reveal";
-import { openCalendly } from "@/lib/calendly";
+function scrollToContact() {
+  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+}
 
 const ITEMS = [
   "You're going through a life transition and feel unsure of what's next.",
@@ -89,7 +91,7 @@ export function ForYouIf() {
               Ready to stop carrying this alone?
             </p>
             <button
-              onClick={openCalendly}
+              onClick={scrollToContact}
               className="group shrink-0 inline-flex items-center gap-3 border border-cream-50/30 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-cream-50/10 transition-colors"
             >
               Book a Clarity Call

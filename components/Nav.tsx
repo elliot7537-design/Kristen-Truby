@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { EASE } from "@/lib/motion";
-import { openCalendly } from "@/lib/calendly";
+function scrollToContact() {
+  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+}
 
 const LINKS = [
   { href: "#about", label: "About" },
@@ -59,7 +61,7 @@ export function Nav() {
         </nav>
 
         <button
-          onClick={openCalendly}
+          onClick={scrollToContact}
           className="hidden md:inline-flex items-center gap-2 border border-cream-50/40 px-5 py-2.5 text-[11px] uppercase tracking-widest-xl text-cream-50 hover:bg-forest-950 hover:text-cream-50 transition-all duration-300"
         >
           Book a Clarity Call
@@ -95,7 +97,7 @@ export function Nav() {
                 </a>
               ))}
               <button
-                onClick={() => { setOpen(false); openCalendly(); }}
+                onClick={() => { setOpen(false); scrollToContact(); }}
                 className="mt-2 inline-flex items-center justify-center border border-cream-50/40 px-5 py-3 text-[11px] uppercase tracking-widest-xl text-cream-50"
               >
                 Book a Clarity Call

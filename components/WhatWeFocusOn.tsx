@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal, RevealStagger, RevealItem } from "./Reveal";
-import { openCalendly } from "@/lib/calendly";
+function scrollToContact() {
+  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+}
 
 const PILLARS = [
   {
@@ -98,7 +100,7 @@ export function WhatWeFocusOn() {
 
           <Reveal delay={0.5}>
             <button
-              onClick={openCalendly}
+              onClick={scrollToContact}
               className="group mt-10 inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors self-start"
             >
               Book a Clarity Call
