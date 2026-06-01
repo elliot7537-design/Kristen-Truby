@@ -7,7 +7,7 @@ const STEPS = [
   {
     num: "01",
     icon: BookOpenText,
-    title: "Fulfil Your Purpose",
+    title: "Fulfill Your Purpose",
     copy:
       "Life can feel overwhelming, but you don’t have to navigate it alone. Together we uncover what God uniquely designed you to do and build a path toward it.",
   },
@@ -23,7 +23,7 @@ const STEPS = [
     icon: Footprints,
     title: "Grow in Confidence",
     copy:
-      "Build a stronger, more confident future version of yourself. Your spiritual growth and personal transformation come together in a space that is both healing and holy.",
+      "Step into a stronger, more confident version of who you were created to be. Your spiritual growth and personal transformation come together in a space that is both healing and holy.",
   },
 ];
 

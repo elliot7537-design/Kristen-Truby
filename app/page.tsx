@@ -31,15 +31,15 @@ export default function Home() {
       <Nav />
       <Hero />
       <Divider />
-      <ForYouIf />
-      <Divider />
       <WhatWeFocusOn />
-      <Divider />
-      <RootedAndRising />
       <Divider />
       <MeetKristen />
       <Divider />
       <Testimonials />
+      <Divider />
+      <ForYouIf />
+      <Divider />
+      <RootedAndRising />
       <Divider />
       <Marquee items={MARQUEE_SECONDARY} tone="light" direction="right" />
       <Divider />

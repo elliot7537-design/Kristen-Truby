@@ -160,7 +160,7 @@ export function Hero() {
             variants={fadeUp}
             className="mt-8 max-w-xl text-cream-50/80 text-base md:text-lg leading-relaxed"
           >
-            Faith-based coaching for women navigating life transitions, feeling stuck, or disconnected&mdash;ready to rebuild with clarity and strength.
+            Helping women reconnect with God, regain clarity, and move forward with confidence.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
