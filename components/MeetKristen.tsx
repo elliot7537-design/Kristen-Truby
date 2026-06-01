@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { openCalendly } from "@/lib/calendly";
-import { EASE } from "@/lib/motion";
 
 export function MeetKristen() {
   const ref = useRef<HTMLElement>(null);
