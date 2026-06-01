@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { EASE } from "@/lib/motion";
+import { openCalendly } from "@/lib/calendly";
 
 const LINKS = [
   { href: "#about", label: "About" },
@@ -57,12 +58,12 @@ export function Nav() {
           ))}
         </nav>
 
-        <a
-          href="#contact"
+        <button
+          onClick={openCalendly}
           className="hidden md:inline-flex items-center gap-2 border border-cream-50/40 px-5 py-2.5 text-[11px] uppercase tracking-widest-xl text-cream-50 hover:bg-forest-950 hover:text-cream-50 transition-all duration-300"
         >
           Book a Clarity Call
-        </a>
+        </button>
 
         <button
           onClick={() => setOpen((v) => !v)}
@@ -93,13 +94,12 @@ export function Nav() {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => { setOpen(false); openCalendly(); }}
                 className="mt-2 inline-flex items-center justify-center border border-cream-50/40 px-5 py-3 text-[11px] uppercase tracking-widest-xl text-cream-50"
               >
-                Book a Call
-              </a>
+                Book a Clarity Call
+              </button>
             </div>
           </motion.div>
         )}

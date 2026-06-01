@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { openCalendly } from "@/lib/calendly";
 import { EASE } from "@/lib/motion";
 
 export function MeetKristen() {
@@ -109,8 +110,8 @@ export function MeetKristen() {
 
           <Reveal delay={0.4}>
             <div className="mt-10 border-t border-ink-900/10 pt-8 flex flex-col sm:flex-row sm:items-center gap-6">
-              <a
-                href="#contact"
+              <button
+                onClick={openCalendly}
                 className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors"
               >
                 Book a Clarity Call
@@ -118,7 +119,7 @@ export function MeetKristen() {
                   size={14}
                   className="transition-transform duration-300 group-hover:translate-x-1"
                 />
-              </a>
+              </button>
               <div>
                 <div className="font-display italic text-xl text-forest-700">
                   — Kristen Truby

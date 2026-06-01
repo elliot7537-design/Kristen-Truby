@@ -5,6 +5,7 @@ import { motion, type Variants, useReducedMotion } from "framer-motion";
 import { ArrowRight, MoveDown } from "lucide-react";
 import { EASE, EASE_REVEAL } from "@/lib/motion";
 import { CircleBadge } from "./CircleBadge";
+import { openCalendly } from "@/lib/calendly";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -164,8 +165,8 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-            <motion.a
-              href="#contact"
+            <motion.button
+              onClick={openCalendly}
               whileHover={reduce ? undefined : { y: -2 }}
               className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-800 transition-colors"
             >
@@ -174,7 +175,7 @@ export function Hero() {
                 size={14}
                 className="transition-transform duration-300 group-hover:translate-x-1"
               />
-            </motion.a>
+            </motion.button>
             <motion.a
               href="#method"
               whileHover={reduce ? undefined : { y: -2 }}
