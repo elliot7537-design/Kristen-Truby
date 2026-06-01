@@ -5,7 +5,9 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
-import { openCalendly } from "@/lib/calendly";
+function scrollToContact() {
+  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function MeetKristen() {
   const ref = useRef<HTMLElement>(null);
@@ -110,7 +112,7 @@ export function MeetKristen() {
           <Reveal delay={0.4}>
             <div className="mt-10 border-t border-ink-900/10 pt-8 flex flex-col sm:flex-row sm:items-center gap-6">
               <button
-                onClick={openCalendly}
+                onClick={scrollToContact}
                 className="group inline-flex items-center gap-3 bg-forest-950 text-cream-50 px-7 py-4 text-[11px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors"
               >
                 Book a Clarity Call
