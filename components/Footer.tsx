@@ -51,7 +51,7 @@ export function Footer() {
               weary, they will walk and not be faint.&rdquo;
             </p>
             <p className="mt-5 text-[10px] uppercase tracking-widest-xl text-sage-300">
-              — Isaiah 40:31
+             Isaiah 40:31
             </p>
           </Reveal>
 

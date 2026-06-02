@@ -7,22 +7,22 @@ import { BOOKING_WINDOW_DAYS } from "@/lib/availability";
 // ─── Timezone data ────────────────────────────────────────────────────────────
 const TIMEZONES = [
   { group: "United States", zones: [
-    { label: "Eastern (ET) — New York", value: "America/New_York" },
-    { label: "Central (CT) — Chicago", value: "America/Chicago" },
-    { label: "Mountain (MT) — Denver", value: "America/Denver" },
-    { label: "Pacific (PT) — Los Angeles", value: "America/Los_Angeles" },
-    { label: "Alaska (AKT) — Anchorage", value: "America/Anchorage" },
-    { label: "Hawaii (HT) — Honolulu", value: "Pacific/Honolulu" },
+    { label: "Eastern (ET): New York", value: "America/New_York" },
+    { label: "Central (CT): Chicago", value: "America/Chicago" },
+    { label: "Mountain (MT): Denver", value: "America/Denver" },
+    { label: "Pacific (PT): Los Angeles", value: "America/Los_Angeles" },
+    { label: "Alaska (AKT): Anchorage", value: "America/Anchorage" },
+    { label: "Hawaii (HT): Honolulu", value: "Pacific/Honolulu" },
   ]},
   { group: "Canada", zones: [
-    { label: "Eastern — Toronto", value: "America/Toronto" },
-    { label: "Mountain — Calgary", value: "America/Edmonton" },
-    { label: "Pacific — Vancouver", value: "America/Vancouver" },
+    { label: "Eastern: Toronto", value: "America/Toronto" },
+    { label: "Mountain: Calgary", value: "America/Edmonton" },
+    { label: "Pacific: Vancouver", value: "America/Vancouver" },
   ]},
   { group: "Europe", zones: [
-    { label: "GMT/BST — London", value: "Europe/London" },
-    { label: "CET — Paris, Berlin, Rome", value: "Europe/Paris" },
-    { label: "EET — Athens, Helsinki", value: "Europe/Athens" },
+    { label: "GMT/BST: London", value: "Europe/London" },
+    { label: "CET: Paris, Berlin, Rome", value: "Europe/Paris" },
+    { label: "EET: Athens, Helsinki", value: "Europe/Athens" },
   ]},
   { group: "Latin America", zones: [
     { label: "Mexico City", value: "America/Mexico_City" },
@@ -32,18 +32,18 @@ const TIMEZONES = [
   ]},
   { group: "Middle East & Africa", zones: [
     { label: "Dubai (Gulf)", value: "Asia/Dubai" },
-    { label: "East Africa — Nairobi", value: "Africa/Nairobi" },
-    { label: "South Africa — Johannesburg", value: "Africa/Johannesburg" },
+    { label: "East Africa: Nairobi", value: "Africa/Nairobi" },
+    { label: "South Africa: Johannesburg", value: "Africa/Johannesburg" },
   ]},
   { group: "Asia & Pacific", zones: [
     { label: "India (IST)", value: "Asia/Kolkata" },
-    { label: "Southeast Asia — Bangkok", value: "Asia/Bangkok" },
+    { label: "Southeast Asia: Bangkok", value: "Asia/Bangkok" },
     { label: "Singapore, Philippines", value: "Asia/Singapore" },
     { label: "China, Hong Kong", value: "Asia/Shanghai" },
     { label: "Japan, South Korea", value: "Asia/Tokyo" },
-    { label: "Australia Eastern — Sydney", value: "Australia/Sydney" },
-    { label: "Australia Western — Perth", value: "Australia/Perth" },
-    { label: "New Zealand — Auckland", value: "Pacific/Auckland" },
+    { label: "Australia Eastern: Sydney", value: "Australia/Sydney" },
+    { label: "Australia Western: Perth", value: "Australia/Perth" },
+    { label: "New Zealand: Auckland", value: "Pacific/Auckland" },
   ]},
 ];
 
@@ -489,7 +489,7 @@ export function BookingWidget() {
                 rows={3}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Share anything that feels relevant — no pressure to have it all figured out."
+                placeholder="Share anything that feels relevant: no pressure to have it all figured out."
                 className="w-full border border-ink-900/15 bg-cream-50 px-3 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 focus:outline-none focus:border-forest-600 transition-colors resize-none"
               />
             </div>

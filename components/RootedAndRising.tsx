@@ -9,7 +9,7 @@ import { EASE } from "@/lib/motion";
 const VALUES = [
   {
     label: "Truth over pressure.",
-    detail: "We move at the pace of healing, not hustle — grounded in what God says about you.",
+    detail: "We move at the pace of healing, not hustle, grounded in what God says about you.",
   },
   {
     label: "Growth over perfection.",
@@ -17,7 +17,7 @@ const VALUES = [
   },
   {
     label: "Consistency over quick fixes.",
-    detail: "Real transformation is built slowly, faithfully — one honest conversation at a time.",
+    detail: "Real transformation is built slowly, faithfully, one honest conversation at a time.",
   },
 ];
 
@@ -72,7 +72,7 @@ export function RootedAndRising() {
 
         <Reveal>
           <p className="text-ink-700 text-[18px] md:text-xl leading-relaxed max-w-2xl mb-16 md:mb-20">
-            I don&rsquo;t believe in forcing change. I help you recognize what&rsquo;s already there — and learn how to walk in it again. This faith-based coaching is rooted in:
+            I don&rsquo;t believe in forcing change. I help you recognize what&rsquo;s already there, and learn how to walk in it again. This faith-based coaching is rooted in:
           </p>
         </Reveal>
 
@@ -97,7 +97,7 @@ export function RootedAndRising() {
               &ldquo;You don&rsquo;t need to become someone new. You need to return to who you are in God.&rdquo;
             </blockquote>
             <div className="mt-6 text-[10px] uppercase tracking-widest-xl text-forest-600/70">
-              — Kristen Truby · Founder, Rooted &amp; Rising
+             Kristen Truby · Founder, Rooted &amp; Rising
             </div>
           </div>
         </Reveal>
