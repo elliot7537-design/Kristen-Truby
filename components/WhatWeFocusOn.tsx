@@ -38,7 +38,7 @@ export function WhatWeFocusOn() {
         {/* Left — sticky image */}
         <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
           <Image
-            src="/images/focus.jpg"
+            src="/images/focus-session.png"
             alt="Peaceful nature — a reminder to pause and reflect"
             fill
             quality={90}
