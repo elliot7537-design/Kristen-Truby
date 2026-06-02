@@ -32,7 +32,7 @@ export function MeetKristen() {
         <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
           <motion.div style={{ y }} className="absolute inset-0 -top-12 -bottom-12">
             <Image
-              src="/images/kristen-portrait.jpg"
+              src="/images/kristen-portrait-new.png"
               alt="Kristen Truby, Christian life coach"
               fill
               quality={90}
