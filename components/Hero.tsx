@@ -189,16 +189,8 @@ export function Hero() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-16 md:mt-20 grid grid-cols-3 max-w-xl border-t border-cream-50/15 pt-6 gap-4"
+            className="mt-16 md:mt-20 grid grid-cols-2 max-w-xl border-t border-cream-50/15 pt-6 gap-4"
           >
-            <div>
-              <div className="font-display text-4xl md:text-5xl text-cream-50">
-                26<span className="text-sage-300">+</span>
-              </div>
-              <div className="text-[10px] uppercase tracking-widest-xl text-cream-50/60 mt-2">
-                Clients
-              </div>
-            </div>
             <div>
               <div className="font-display text-4xl md:text-5xl text-cream-50">
                 M.S.

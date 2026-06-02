@@ -28,7 +28,7 @@ export function Contact() {
           </Reveal>
           <Reveal delay={0.2}>
             <p className="mt-8 text-ink-700 leading-relaxed text-[17px]">
-              Book a free 30-minute clarity call — choose a time that works for you, wherever you are in the world.
+              Book a free 30-minute clarity call. Choose a time that works for you, wherever you are in the world.
             </p>
           </Reveal>
           <Reveal delay={0.3}>
