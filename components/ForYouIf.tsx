@@ -12,7 +12,7 @@ const ITEMS = [
   "You feel stuck or unmotivated in your faith.",
   "You're carrying disappointment or emotional weight.",
   "You're tired of trying to be perfect.",
-  "You know there's more in you — but can't seem to access it.",
+  "You know there's more in you, but can't seem to access it.",
 ];
 
 export function ForYouIf() {

@@ -16,7 +16,7 @@ const PILLARS = [
   {
     num: "02",
     title: "Gaining Clarity in Seasons of Transition",
-    copy: "Moving through uncertainty with purpose — not paralysis — by uncovering what God has already placed in you.",
+    copy: "Moving through uncertainty with purpose, not paralysis, by uncovering what God has already placed in you.",
   },
   {
     num: "03",

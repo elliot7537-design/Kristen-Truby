@@ -16,7 +16,7 @@ const STEPS = [
     icon: HeartHandshake,
     title: "Overcome Challenges",
     copy:
-      "Through strong wisdom and Biblical truth, we face the hard things head-on — naming obstacles, shifting perspective, and finding the strength that was already inside you.",
+      "Through strong wisdom and Biblical truth, we face the hard things head-on: naming obstacles, shifting perspective, and finding the strength that was already inside you.",
   },
   {
     num: "03",

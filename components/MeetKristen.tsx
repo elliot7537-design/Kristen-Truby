@@ -84,7 +84,7 @@ export function MeetKristen() {
 
             <Reveal delay={0.2}>
               <p>
-                Those experiences shaped the way I show up — with compassion,
+                Those experiences shaped the way I show up: with compassion,
                 patience, and care.
               </p>
             </Reveal>
@@ -104,7 +104,7 @@ export function MeetKristen() {
                 you can slow down, breathe, and reconnect with who God created
                 you to be. Whether you&apos;re navigating a life transition,
                 rebuilding your faith, or simply ready to move forward with more
-                intention — I&apos;m honored to walk alongside you.
+                intention; I&apos;m honored to walk alongside you.
               </p>
             </Reveal>
           </div>
