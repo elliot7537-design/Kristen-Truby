@@ -37,7 +37,7 @@ export function MeetKristen() {
               fill
               quality={90}
               sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
-              className="object-cover"
+              className="object-cover object-top"
             />
           </motion.div>
 
