@@ -123,7 +123,7 @@ export function MeetKristen() {
               </button>
               <div>
                 <div className="font-display italic text-xl text-forest-700">
-                  — Kristen Truby
+                 Kristen Truby
                 </div>
                 <div className="text-[10px] uppercase tracking-widest-xl text-ink-500 mt-1">
                   Founder · Rooted &amp; Rising

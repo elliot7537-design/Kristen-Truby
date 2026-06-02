@@ -93,7 +93,7 @@ export function About() {
                 I&apos;m a Certified Christian Life Coach with a Master&apos;s
                 in Sociology and 20+ years of professional experience. I
                 specialize in guiding individuals through life&apos;s most
-                complex seasons of change, adversity, and growth — through
+                complex seasons of change, adversity, and growth; through
                 Biblical truth and personal conviction.
               </p>
             </Reveal>
@@ -112,7 +112,7 @@ export function About() {
                   strokeWidth={1.5}
                 />
                 <blockquote className="font-display italic text-2xl md:text-3xl text-forest-800 leading-[1.25]">
-                  Real change starts within. God is calling you higher — and
+                  Real change starts within. God is calling you higher, and
                   I&apos;m honored to walk alongside you on that journey.
                 </blockquote>
               </motion.figure>
@@ -124,7 +124,7 @@ export function About() {
                 with your God-given identity and move forward with
                 clarity, courage, and confidence. Together we&apos;ll
                 integrate faith, truth, and care to give you the tools
-                you need — not just to cope, but to truly thrive.
+                you need: not just to cope, but to truly thrive.
               </p>
             </Reveal>
           </div>
@@ -133,7 +133,7 @@ export function About() {
             <div className="mt-12 flex items-end justify-between border-t border-ink-900/10 pt-6 max-w-xl">
               <div>
                 <div className="font-display italic text-3xl text-forest-800">
-                  — Kristen Truby
+                 Kristen Truby
                 </div>
                 <div className="text-[10px] uppercase tracking-widest-xl text-forest-600/70 mt-2">
                   Founder · Rooted &amp; Rising
