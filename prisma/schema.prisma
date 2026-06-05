@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  referrer  String?
+  createdAt DateTime @default(now())
+}
+
 model Booking {
   id        String   @id @default(cuid())
   name      String
