@@ -64,11 +64,13 @@ export default function AdminDashboard() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
+    setFetchError("");
     try {
       const [bRes, sRes] = await Promise.all([
         fetch("/api/admin/bookings"),
@@ -78,10 +80,16 @@ export default function AdminDashboard() {
         router.push("/admin");
         return;
       }
+      if (!bRes.ok || !sRes.ok) {
+        setFetchError(`Server error (bookings: ${bRes.status}, stats: ${sRes.status}). Check that DATABASE_URL is set in Vercel environment variables.`);
+        return;
+      }
       const { bookings: b } = await bRes.json();
       const s = await sRes.json();
-      setBookings(b);
+      setBookings(b ?? []);
       setStats(s);
+    } catch (e) {
+      setFetchError(`Failed to load data: ${e instanceof Error ? e.message : "Unknown error"}`);
     } finally {
       setLoading(false);
     }
@@ -192,6 +200,11 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-center py-24 text-gray-400 gap-2">
             <RefreshCw size={16} className="animate-spin" />
             <span className="text-sm">Loading…</span>
+          </div>
+        ) : fetchError ? (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-5 text-sm leading-relaxed max-w-2xl">
+            <p className="font-medium mb-1">Could not load dashboard data</p>
+            <p>{fetchError}</p>
           </div>
         ) : (
           <>
