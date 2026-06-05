@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,4 +18,30 @@ model Booking {
   timezone  String
   status    String   @default("pending")
   createdAt DateTime @default(now())
+}
+
+model AdminSettings {
+  id           String  @id @default("singleton")
+  passwordHash String?
+}
+
+model AvailabilityDay {
+  id        String  @id @default(cuid())
+  dayOfWeek Int     @unique
+  enabled   Boolean @default(true)
+  startHour Int     @default(9)
+  startMin  Int     @default(0)
+  endHour   Int     @default(17)
+  endMin    Int     @default(0)
+}
+
+model BlockedDate {
+  id   String  @id @default(cuid())
+  date String
+  note String?
+}
+
+model SiteContent {
+  key   String @id
+  value String
 }

@@ -10,6 +10,7 @@ import { Marquee } from "@/components/Marquee";
 import { Method } from "@/components/Method";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { prisma } from "@/lib/db";
 
 const MARQUEE_SECONDARY = [
   "Walk in Purpose",
@@ -24,16 +25,33 @@ function Divider() {
   return <div className="h-6" />;
 }
 
-export default function Home() {
+async function getSiteContent(): Promise<Record<string, string>> {
+  try {
+    const items = await prisma.siteContent.findMany();
+    return Object.fromEntries(items.map((i: { key: string; value: string }) => [i.key, i.value]));
+  } catch {
+    return {};
+  }
+}
+
+export default async function Home() {
+  const content = await getSiteContent();
+
   return (
     <main>
       <ScrollProgress />
       <Nav />
-      <Hero />
+      <Hero heroImage={content["hero.image"]} heroSubheadline={content["hero.subheadline"]} />
       <Divider />
-      <WhatWeFocusOn />
+      <WhatWeFocusOn focusImage={content["focus.image"]} />
       <Divider />
-      <MeetKristen />
+      <MeetKristen
+        portraitImage={content["meet.image"]}
+        bio1={content["meet.bio1"]}
+        bio2={content["meet.bio2"]}
+        bio3={content["meet.bio3"]}
+        bio4={content["meet.bio4"]}
+      />
       <Divider />
       <Testimonials />
       <Divider />

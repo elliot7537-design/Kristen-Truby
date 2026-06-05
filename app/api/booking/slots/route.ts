@@ -4,14 +4,13 @@ import { getSlotsForDate, formatInTimezone, BOOKING_WINDOW_DAYS } from "@/lib/av
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
-  const date = searchParams.get("date"); // YYYY-MM-DD
+  const date = searchParams.get("date");
   const timezone = searchParams.get("timezone") ?? "America/Los_Angeles";
 
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return NextResponse.json({ error: "Invalid date" }, { status: 400 });
   }
 
-  // Enforce booking window
   const now = new Date();
   const maxDate = new Date(now.getTime() + BOOKING_WINDOW_DAYS * 24 * 60 * 60 * 1000);
   const reqDate = new Date(date + "T12:00:00Z");
@@ -19,18 +18,20 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ slots: [] });
   }
 
-  // Fetch already-booked slots for this date (±1 day buffer for timezone edge cases)
   const dayStart = new Date(date + "T00:00:00Z");
   const dayEnd = new Date(date + "T23:59:59Z");
   const booked = await prisma.booking.findMany({
     where: {
       status: { not: "cancelled" },
-      startTime: { gte: new Date(dayStart.getTime() - 86400000), lte: new Date(dayEnd.getTime() + 86400000) },
+      startTime: {
+        gte: new Date(dayStart.getTime() - 86400000),
+        lte: new Date(dayEnd.getTime() + 86400000),
+      },
     },
     select: { startTime: true },
   });
 
-  const slots = getSlotsForDate(date, booked.map((b) => b.startTime));
+  const slots = await getSlotsForDate(date, booked.map((b) => b.startTime));
 
   return NextResponse.json({
     slots: slots.map(({ startUTC, endUTC }) => ({
