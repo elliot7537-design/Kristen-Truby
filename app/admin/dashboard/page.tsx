@@ -3,8 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Calendar, Users, BarChart2, LogOut, Check, X,
-  ExternalLink, RefreshCw,
+  Calendar, Users, BarChart2, LogOut, Check, X, RefreshCw, ExternalLink,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -29,6 +28,15 @@ interface Stats {
   cancelled: number;
   recentBookings: Booking[];
   months: { label: string; count: number }[];
+}
+
+interface Analytics {
+  total: number;
+  today: number;
+  thisWeek: number;
+  thisMonth: number;
+  days: { label: string; count: number }[];
+  pages: { path: string; count: number }[];
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -63,6 +71,7 @@ export default function AdminDashboard() {
   const [tab, setTab] = useState<"overview" | "appointments" | "clients" | "analytics">("overview");
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -72,9 +81,10 @@ export default function AdminDashboard() {
     setLoading(true);
     setFetchError("");
     try {
-      const [bRes, sRes] = await Promise.all([
+      const [bRes, sRes, aRes] = await Promise.all([
         fetch("/api/admin/bookings"),
         fetch("/api/admin/stats"),
+        fetch("/api/admin/analytics"),
       ]);
       if (bRes.status === 401 || sRes.status === 401) {
         router.push("/admin");
@@ -86,8 +96,10 @@ export default function AdminDashboard() {
       }
       const { bookings: b } = await bRes.json();
       const s = await sRes.json();
+      const a = aRes.ok ? await aRes.json() : null;
       setBookings(b ?? []);
       setStats(s);
+      setAnalytics(a);
     } catch (e) {
       setFetchError(`Failed to load data: ${e instanceof Error ? e.message : "Unknown error"}`);
     } finally {
@@ -425,71 +437,102 @@ export default function AdminDashboard() {
             )}
 
             {/* ── ANALYTICS ── */}
-            {tab === "analytics" && stats && (
+            {tab === "analytics" && (
               <div className="space-y-6">
-                {/* Booking trend chart */}
-                <div className="bg-white border border-gray-200 p-6">
-                  <h2 className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-6">Bookings — Last 6 Months</h2>
-                  <div className="flex items-end gap-3 h-40">
-                    {stats.months.map((m) => (
-                      <div key={m.label} className="flex-1 flex flex-col items-center gap-2">
-                        <span className="text-xs font-medium text-forest-800">{m.count > 0 ? m.count : ""}</span>
-                        <div
-                          className="w-full bg-forest-600/80 transition-all"
-                          style={{ height: `${(m.count / maxMonth) * 100}%`, minHeight: m.count > 0 ? "4px" : "2px" }}
-                        />
-                        <span className="text-[10px] text-gray-500 whitespace-nowrap">{m.label}</span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Page view stat cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { label: "Total Page Views", value: analytics?.total ?? 0, color: "text-forest-800" },
+                    { label: "Views Today", value: analytics?.today ?? 0, color: "text-blue-700" },
+                    { label: "This Week", value: analytics?.thisWeek ?? 0, color: "text-purple-700" },
+                    { label: "This Month", value: analytics?.thisMonth ?? 0, color: "text-green-700" },
+                  ].map((s) => (
+                    <div key={s.label} className="bg-white border border-gray-200 p-5">
+                      <div className={`font-display text-4xl ${s.color}`}>{s.value}</div>
+                      <div className="text-[10px] uppercase tracking-widest-xl text-gray-500 mt-1">{s.label}</div>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Breakdown */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Daily bar chart */}
+                <div className="bg-white border border-gray-200 p-6">
+                  <h2 className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-6">Page Views — Last 7 Days</h2>
+                  {analytics && analytics.days.every(d => d.count === 0) ? (
+                    <p className="text-sm text-gray-400 py-8 text-center">No page views recorded yet. Views will appear here as visitors browse the site.</p>
+                  ) : (
+                    <div className="flex items-end gap-2 h-36">
+                      {(analytics?.days ?? []).map((d) => {
+                        const maxDay = Math.max(...(analytics?.days ?? []).map(x => x.count), 1);
+                        return (
+                          <div key={d.label} className="flex-1 flex flex-col items-center gap-1.5">
+                            <span className="text-xs font-medium text-forest-800">{d.count > 0 ? d.count : ""}</span>
+                            <div
+                              className="w-full bg-forest-600/80 transition-all"
+                              style={{ height: `${(d.count / maxDay) * 100}%`, minHeight: d.count > 0 ? "4px" : "2px" }}
+                            />
+                            <span className="text-[9px] text-gray-400 whitespace-nowrap">{d.label.split(",")[0]}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Top pages */}
                   <div className="bg-white border border-gray-200 p-5">
-                    <div className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-3">Booking Breakdown</div>
+                    <div className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-4">Top Pages</div>
+                    {!analytics || analytics.pages.length === 0 ? (
+                      <p className="text-sm text-gray-400">No data yet.</p>
+                    ) : (
+                      <div className="space-y-2">
+                        {analytics.pages.map((p) => {
+                          const maxCount = analytics.pages[0].count;
+                          return (
+                            <div key={p.path} className="flex items-center gap-3">
+                              <div className="flex-1 min-w-0">
+                                <div className="text-sm text-gray-800 truncate">{p.path === "/" ? "/ (Home)" : p.path}</div>
+                                <div className="mt-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                  <div
+                                    className="h-full bg-forest-500 rounded-full"
+                                    style={{ width: `${(p.count / maxCount) * 100}%` }}
+                                  />
+                                </div>
+                              </div>
+                              <span className="text-sm font-medium text-gray-600 shrink-0">{p.count}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Booking breakdown */}
+                  <div className="bg-white border border-gray-200 p-5">
+                    <div className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-4">Booking Breakdown</div>
                     {[
                       { label: "Confirmed", value: bookings.filter(b => b.status === "confirmed").length, color: "bg-green-500" },
                       { label: "Pending", value: bookings.filter(b => b.status === "pending").length, color: "bg-amber-400" },
                       { label: "Cancelled", value: bookings.filter(b => b.status === "cancelled").length, color: "bg-red-400" },
                     ].map((row) => (
-                      <div key={row.label} className="flex items-center gap-3 py-1.5">
-                        <span className={`w-2 h-2 rounded-full ${row.color}`} />
+                      <div key={row.label} className="flex items-center gap-3 py-2">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${row.color}`} />
                         <span className="text-sm text-gray-700 flex-1">{row.label}</span>
-                        <span className="font-display text-lg text-gray-900">{row.value}</span>
+                        <span className="font-display text-xl text-gray-900">{row.value}</span>
                       </div>
                     ))}
-                  </div>
-
-                  <div className="bg-white border border-gray-200 p-5">
-                    <div className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-3">Time Overview</div>
-                    {[
-                      { label: "Upcoming sessions", value: stats.upcoming },
-                      { label: "Past sessions", value: stats.total - stats.upcoming },
-                      { label: "Booked this month", value: stats.thisMonth },
-                    ].map((row) => (
-                      <div key={row.label} className="flex items-center justify-between py-1.5">
-                        <span className="text-sm text-gray-600">{row.label}</span>
-                        <span className="font-display text-lg text-forest-800">{row.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="bg-white border border-gray-200 p-5 flex flex-col justify-between">
-                    <div>
-                      <div className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-3">Website Traffic</div>
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        Page views, visitor counts, and traffic sources are available in your Vercel dashboard.
-                      </p>
+                    <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
+                      {stats && [
+                        { label: "Upcoming sessions", value: stats.upcoming },
+                        { label: "Past sessions", value: stats.total - stats.upcoming },
+                        { label: "Booked this month", value: stats.thisMonth },
+                      ].map((row) => (
+                        <div key={row.label} className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">{row.label}</span>
+                          <span className="font-display text-lg text-forest-800">{row.value}</span>
+                        </div>
+                      ))}
                     </div>
-                    <a
-                      href="https://vercel.com/analytics"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-widest-xl text-forest-700 hover:text-forest-950 transition-colors"
-                    >
-                      <ExternalLink size={11} /> Open Vercel Analytics
-                    </a>
                   </div>
                 </div>
               </div>
