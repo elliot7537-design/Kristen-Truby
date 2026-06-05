@@ -825,120 +825,172 @@ export default function AdminDashboard() {
 
             {/* ── AVAILABILITY ── */}
             {tab === "availability" && (
-              <div className="space-y-6 max-w-2xl">
-                <div>
-                  <h2 className="text-sm font-medium text-gray-800 mb-1">Coaching Schedule</h2>
-                  <p className="text-xs text-gray-500">
-                    All times are in <strong>Pacific Time (America/Los_Angeles)</strong>. Visitors will see available slots converted to their own timezone automatically.
-                  </p>
+              <div className="space-y-8 max-w-3xl">
+
+                {/* Header */}
+                <div className="flex items-start justify-between gap-4 flex-wrap">
+                  <div>
+                    <h2 className="text-base font-semibold text-gray-900">Set your weekly hours</h2>
+                    <p className="text-sm text-gray-500 mt-0.5 flex items-center gap-1.5">
+                      <Clock size={13} className="text-forest-600" />
+                      Pacific Time (PT) · America/Los_Angeles · 30-minute sessions
+                    </p>
+                  </div>
+                  <button
+                    onClick={saveAvailability}
+                    disabled={availSaving}
+                    className="flex items-center gap-2 bg-forest-600 text-white px-5 py-2.5 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-50 shadow-sm"
+                  >
+                    <Save size={14} />
+                    {availSaving ? "Saving…" : "Save changes"}
+                  </button>
                 </div>
 
+                {availMsg && (
+                  <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 px-4 py-3 rounded-md">
+                    <Check size={15} />
+                    {availMsg}
+                  </div>
+                )}
+
                 {availLoading ? (
-                  <div className="flex items-center gap-2 text-gray-400 py-8">
-                    <RefreshCw size={14} className="animate-spin" /> Loading…
+                  <div className="flex items-center gap-2 text-gray-400 py-12">
+                    <RefreshCw size={15} className="animate-spin" />
+                    <span className="text-sm">Loading your schedule…</span>
                   </div>
                 ) : (
                   <>
-                    <div className="bg-white border border-gray-200 divide-y divide-gray-100">
-                      {availDays.map((day) => (
-                        <div key={day.dayOfWeek} className="px-5 py-4 flex items-center gap-4 flex-wrap">
-                          <label className="flex items-center gap-3 cursor-pointer min-w-[130px]">
-                            <button
-                              role="switch"
-                              aria-checked={day.enabled}
-                              onClick={() => updateDay(day.dayOfWeek, { enabled: !day.enabled })}
-                              className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors ${day.enabled ? "bg-forest-600" : "bg-gray-200"}`}
-                            >
-                              <span className={`inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${day.enabled ? "translate-x-4" : "translate-x-0"}`} />
-                            </button>
-                            <span className={`text-sm font-medium ${day.enabled ? "text-gray-900" : "text-gray-400"}`}>
-                              {DAY_NAMES[day.dayOfWeek]}
-                            </span>
-                          </label>
+                    {/* Weekly schedule card */}
+                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                      {availDays.map((day, idx) => (
+                        <div
+                          key={day.dayOfWeek}
+                          className={`flex items-center gap-5 px-6 py-4 ${idx !== 0 ? "border-t border-gray-100" : ""} ${day.enabled ? "" : "bg-gray-50/60"}`}
+                        >
+                          {/* Toggle */}
+                          <button
+                            role="switch"
+                            aria-checked={day.enabled}
+                            onClick={() => updateDay(day.dayOfWeek, { enabled: !day.enabled })}
+                            className={`relative flex-shrink-0 inline-flex h-6 w-10 rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 ${day.enabled ? "bg-forest-600" : "bg-gray-200"}`}
+                          >
+                            <span className={`inline-block h-5 w-5 m-0.5 rounded-full bg-white shadow transition-transform duration-200 ${day.enabled ? "translate-x-4" : "translate-x-0"}`} />
+                          </button>
 
-                          {day.enabled && (
-                            <div className="flex items-center gap-2 text-sm text-gray-700">
-                              <select
-                                value={day.startHour}
-                                onChange={(e) => updateDay(day.dayOfWeek, { startHour: Number(e.target.value) })}
-                                className="border border-gray-200 px-2 py-1.5 text-sm focus:outline-none focus:border-forest-500 bg-white"
-                              >
-                                {hours.map((h) => (
-                                  <option key={h.value} value={h.value}>{h.label}</option>
-                                ))}
-                              </select>
-                              <span className="text-gray-400 text-xs">to</span>
-                              <select
-                                value={day.endHour}
-                                onChange={(e) => updateDay(day.dayOfWeek, { endHour: Number(e.target.value) })}
-                                className="border border-gray-200 px-2 py-1.5 text-sm focus:outline-none focus:border-forest-500 bg-white"
-                              >
-                                {hours.filter(h => h.value > day.startHour).map((h) => (
-                                  <option key={h.value} value={h.value}>{h.label}</option>
-                                ))}
-                              </select>
-                              <span className="text-[11px] text-gray-400">PT · 30-min slots</span>
+                          {/* Day label */}
+                          <span className={`w-24 text-sm font-medium shrink-0 ${day.enabled ? "text-gray-900" : "text-gray-400"}`}>
+                            {DAY_NAMES[day.dayOfWeek].slice(0, 3).toUpperCase()}
+                            <span className="font-normal hidden sm:inline"> &nbsp;{DAY_NAMES[day.dayOfWeek].slice(3)}</span>
+                          </span>
+
+                          {day.enabled ? (
+                            /* Time range picker */
+                            <div className="flex items-center gap-3 flex-1">
+                              <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                                <select
+                                  value={day.startHour}
+                                  onChange={(e) => updateDay(day.dayOfWeek, { startHour: Number(e.target.value) })}
+                                  className="px-3 py-2 text-sm text-gray-800 bg-transparent focus:outline-none appearance-none cursor-pointer pr-6"
+                                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
+                                >
+                                  {hours.map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
+                                </select>
+                              </div>
+
+                              <span className="text-gray-400 text-sm select-none">→</span>
+
+                              <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                                <select
+                                  value={day.endHour}
+                                  onChange={(e) => updateDay(day.dayOfWeek, { endHour: Number(e.target.value) })}
+                                  className="px-3 py-2 text-sm text-gray-800 bg-transparent focus:outline-none appearance-none cursor-pointer pr-6"
+                                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
+                                >
+                                  {hours.filter(h => h.value > day.startHour).map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
+                                </select>
+                              </div>
+
+                              <span className="text-xs text-gray-400 hidden md:block">
+                                {Math.max(0, Math.floor((day.endHour * 60 - day.startHour * 60) / 30))} slots
+                              </span>
                             </div>
+                          ) : (
+                            <span className="text-sm text-gray-400 italic flex-1">Unavailable</span>
                           )}
                         </div>
                       ))}
                     </div>
 
-                    <div>
-                      <h3 className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-3">Blocked Dates</h3>
-                      <p className="text-xs text-gray-400 mb-4">No slots will be shown on these dates regardless of the schedule above.</p>
+                    {/* Blocked dates card */}
+                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                      <div className="px-6 py-4 border-b border-gray-100">
+                        <h3 className="text-sm font-semibold text-gray-900">Date overrides</h3>
+                        <p className="text-xs text-gray-500 mt-0.5">Block off specific dates — no slots will be shown regardless of your weekly hours.</p>
+                      </div>
 
                       {blockedDates.length > 0 && (
-                        <div className="mb-4 space-y-2">
+                        <div className="divide-y divide-gray-100">
                           {blockedDates.map((b) => (
-                            <div key={b.date} className="flex items-center gap-3 bg-white border border-gray-200 px-4 py-2.5">
-                              <span className="text-sm text-gray-800 font-medium">{b.date}</span>
-                              {b.note && <span className="text-xs text-gray-400 flex-1">{b.note}</span>}
+                            <div key={b.date} className="flex items-center gap-4 px-6 py-3">
+                              <div className="flex-1">
+                                <p className="text-sm font-medium text-gray-800">
+                                  {new Date(b.date + "T12:00:00Z").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}
+                                </p>
+                                {b.note && <p className="text-xs text-gray-400 mt-0.5">{b.note}</p>}
+                              </div>
                               <button
                                 onClick={() => removeBlockedDate(b.date)}
-                                className="text-gray-400 hover:text-red-500 transition-colors"
+                                className="flex items-center gap-1 text-xs text-gray-400 hover:text-red-500 transition-colors px-2 py-1 rounded hover:bg-red-50"
                               >
-                                <Trash2 size={13} />
+                                <Trash2 size={12} /> Remove
                               </button>
                             </div>
                           ))}
                         </div>
                       )}
 
-                      <div className="flex gap-2 flex-wrap">
-                        <input
-                          type="date"
-                          value={newBlockDate}
-                          onChange={(e) => setNewBlockDate(e.target.value)}
-                          className="border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:border-forest-500"
-                        />
-                        <input
-                          type="text"
-                          value={newBlockNote}
-                          onChange={(e) => setNewBlockNote(e.target.value)}
-                          placeholder="Reason (optional)"
-                          className="flex-1 min-w-[140px] border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:border-forest-500"
-                        />
-                        <button
-                          onClick={addBlockedDate}
-                          disabled={!newBlockDate}
-                          className="flex items-center gap-1.5 bg-gray-100 text-gray-700 px-3 py-2 text-[10px] uppercase tracking-widest-xl hover:bg-gray-200 transition-colors disabled:opacity-40"
-                        >
-                          <Plus size={12} /> Block
-                        </button>
+                      <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/60">
+                        <p className="text-xs font-medium text-gray-600 mb-3">Add a blocked date</p>
+                        <div className="flex gap-2 flex-wrap">
+                          <input
+                            type="date"
+                            value={newBlockDate}
+                            onChange={(e) => setNewBlockDate(e.target.value)}
+                            className="border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white shadow-sm"
+                          />
+                          <input
+                            type="text"
+                            value={newBlockNote}
+                            onChange={(e) => setNewBlockNote(e.target.value)}
+                            placeholder="Reason (optional)"
+                            className="flex-1 min-w-[160px] border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white shadow-sm"
+                          />
+                          <button
+                            onClick={addBlockedDate}
+                            disabled={!newBlockDate}
+                            className="flex items-center gap-1.5 bg-white border border-gray-200 text-gray-700 px-4 py-2 text-sm rounded-md hover:bg-gray-50 transition-colors disabled:opacity-40 shadow-sm font-medium"
+                          >
+                            <Plus size={14} /> Add date
+                          </button>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    {/* Save confirmation footer */}
+                    <div className="flex items-center justify-end gap-4 pt-2">
+                      {availMsg && (
+                        <span className="text-sm text-green-700 flex items-center gap-1.5">
+                          <Check size={14} /> {availMsg}
+                        </span>
+                      )}
                       <button
                         onClick={saveAvailability}
                         disabled={availSaving}
-                        className="flex items-center gap-2 bg-forest-950 text-cream-50 px-6 py-3 text-[10px] uppercase tracking-widest-xl hover:bg-forest-700 transition-colors disabled:opacity-50"
+                        className="flex items-center gap-2 bg-forest-600 text-white px-6 py-2.5 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-50 shadow-sm"
                       >
-                        <Save size={13} />
-                        {availSaving ? "Saving…" : "Save Schedule"}
+                        <Save size={14} />
+                        {availSaving ? "Saving…" : "Save changes"}
                       </button>
-                      {availMsg && <p className="text-xs text-green-700">{availMsg}</p>}
                     </div>
                   </>
                 )}
@@ -1137,14 +1189,6 @@ export default function AdminDashboard() {
                       {pwSaving ? "Updating…" : "Update Password"}
                     </button>
                   </form>
-                </div>
-
-                <div className="bg-amber-50 border border-amber-200 px-5 py-4 text-sm text-amber-800">
-                  <p className="font-medium mb-1">Note</p>
-                  <p className="text-xs leading-relaxed">
-                    After changing your password, you will remain logged in. The next time you log in, use your new password.
-                    Your original password is set via the <code className="bg-amber-100 px-1 rounded">ADMIN_PASSWORD</code> environment variable in Vercel.
-                  </p>
                 </div>
               </div>
             )}
