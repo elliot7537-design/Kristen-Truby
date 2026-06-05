@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   Calendar, Users, BarChart2, LogOut, Check, X, RefreshCw, ExternalLink,
   Settings, Clock, Image as ImageIcon, FileText, Lock, Save, Plus, Trash2, Upload,
+  ChevronLeft, ChevronRight,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -53,6 +54,31 @@ interface BlockedDate {
   id: string;
   date: string;
   note: string | null;
+}
+
+interface CalendarEvent {
+  id: string;
+  date: string;
+  title: string;
+  note: string | null;
+  color: string;
+}
+
+const EVENT_COLORS = [
+  { value: "blue",   label: "Blue",   bg: "bg-blue-500",   ring: "ring-blue-500" },
+  { value: "purple", label: "Purple", bg: "bg-purple-500", ring: "ring-purple-500" },
+  { value: "pink",   label: "Pink",   bg: "bg-pink-500",   ring: "ring-pink-500" },
+  { value: "amber",  label: "Amber",  bg: "bg-amber-500",  ring: "ring-amber-500" },
+  { value: "teal",   label: "Teal",   bg: "bg-teal-500",   ring: "ring-teal-500" },
+  { value: "red",    label: "Red",    bg: "bg-red-500",    ring: "ring-red-500" },
+];
+
+function eventDotClass(color: string): string {
+  const map: Record<string, string> = {
+    blue: "bg-blue-500", purple: "bg-purple-500", pink: "bg-pink-500",
+    amber: "bg-amber-500", teal: "bg-teal-500", red: "bg-red-500",
+  };
+  return map[color] ?? "bg-blue-500";
 }
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -256,6 +282,17 @@ export default function AdminDashboard() {
   const [pwMsg, setPwMsg] = useState("");
   const [pwError, setPwError] = useState("");
 
+  // Calendar events state
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const [calendarMonth, setCalendarMonth] = useState(() => todayISO.slice(0, 7));
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
+  const [calEventsLoading, setCalEventsLoading] = useState(false);
+  const [selectedCalDay, setSelectedCalDay] = useState<string | null>(null);
+  const [newEventTitle, setNewEventTitle] = useState("");
+  const [newEventNote, setNewEventNote] = useState("");
+  const [newEventColor, setNewEventColor] = useState("blue");
+  const [addingEvent, setAddingEvent] = useState(false);
+
   const fetchAll = useCallback(async () => {
     setLoading(true);
     setFetchError("");
@@ -318,10 +355,25 @@ export default function AdminDashboard() {
     }
   }, []);
 
+  const fetchCalendarEvents = useCallback(async (month: string) => {
+    setCalEventsLoading(true);
+    try {
+      const res = await fetch(`/api/admin/calendar-events?month=${month}`);
+      if (!res.ok) return;
+      const { events } = await res.json();
+      setCalendarEvents(events ?? []);
+    } finally {
+      setCalEventsLoading(false);
+    }
+  }, []);
+
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
   useEffect(() => {
-    if (tab === "availability" && !availLoading) fetchAvailability();
+    if (tab === "availability") {
+      if (!availLoading) fetchAvailability();
+      fetchCalendarEvents(calendarMonth);
+    }
     if (tab === "content" && !contentLoading) fetchContent();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
@@ -380,6 +432,40 @@ export default function AdminDashboard() {
 
   function removeBlockedDate(date: string) {
     setBlockedDates((prev) => prev.filter((b) => b.date !== date));
+  }
+
+  function navCalendarMonth(delta: number) {
+    const [y, m] = calendarMonth.split("-").map(Number);
+    const next = new Date(Date.UTC(y, m - 1 + delta, 1));
+    const nextStr = `${next.getUTCFullYear()}-${String(next.getUTCMonth() + 1).padStart(2, "0")}`;
+    setCalendarMonth(nextStr);
+    setSelectedCalDay(null);
+    fetchCalendarEvents(nextStr);
+  }
+
+  async function addCalendarEvent() {
+    if (!selectedCalDay || !newEventTitle.trim()) return;
+    setAddingEvent(true);
+    try {
+      const res = await fetch("/api/admin/calendar-events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: selectedCalDay, title: newEventTitle.trim(), note: newEventNote.trim() || undefined, color: newEventColor }),
+      });
+      if (!res.ok) return;
+      const { event } = await res.json();
+      setCalendarEvents((prev) => [...prev, event]);
+      setNewEventTitle("");
+      setNewEventNote("");
+      setNewEventColor("blue");
+    } finally {
+      setAddingEvent(false);
+    }
+  }
+
+  async function deleteCalendarEvent(id: string) {
+    await fetch(`/api/admin/calendar-events?id=${id}`, { method: "DELETE" });
+    setCalendarEvents((prev) => prev.filter((e) => e.id !== id));
   }
 
   async function saveContentKey(key: string) {
@@ -824,178 +910,378 @@ export default function AdminDashboard() {
             )}
 
             {/* ── AVAILABILITY ── */}
-            {tab === "availability" && (
-              <div className="space-y-8 max-w-3xl">
+            {tab === "availability" && (() => {
+              // Build calendar grid for calendarMonth
+              const [calY, calM] = calendarMonth.split("-").map(Number);
+              const firstDay = new Date(Date.UTC(calY, calM - 1, 1));
+              const daysInMonth = new Date(Date.UTC(calY, calM, 0)).getUTCDate();
+              const startDow = firstDay.getUTCDay(); // 0=Sun
+              const gridCells: (string | null)[] = [
+                ...Array(startDow).fill(null),
+                ...Array.from({ length: daysInMonth }, (_, i) =>
+                  `${calendarMonth}-${String(i + 1).padStart(2, "0")}`
+                ),
+              ];
+              while (gridCells.length % 7 !== 0) gridCells.push(null);
 
-                {/* Header */}
-                <div className="flex items-start justify-between gap-4 flex-wrap">
-                  <div>
-                    <h2 className="text-base font-semibold text-gray-900">Set your weekly hours</h2>
-                    <p className="text-sm text-gray-500 mt-0.5 flex items-center gap-1.5">
-                      <Clock size={13} className="text-forest-600" />
-                      Pacific Time (PT) · America/Los_Angeles · 30-minute sessions
-                    </p>
-                  </div>
-                  <button
-                    onClick={saveAvailability}
-                    disabled={availSaving}
-                    className="flex items-center gap-2 bg-forest-600 text-white px-5 py-2.5 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-50 shadow-sm"
-                  >
-                    <Save size={14} />
-                    {availSaving ? "Saving…" : "Save changes"}
-                  </button>
-                </div>
+              const calMonthLabel = firstDay.toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+              const selectedDayEvents = selectedCalDay ? calendarEvents.filter((e) => e.date === selectedCalDay) : [];
+              const selectedDayBookings = selectedCalDay
+                ? bookings.filter((b) => b.startTime.slice(0, 10) === selectedCalDay && b.status !== "cancelled")
+                : [];
+              const isBlocked = (date: string) => blockedDates.some((b) => b.date === date);
 
-                {availMsg && (
-                  <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 px-4 py-3 rounded-md">
-                    <Check size={15} />
-                    {availMsg}
-                  </div>
-                )}
+              return (
+                <div className="space-y-8">
+                  <div className="flex flex-col xl:flex-row gap-8 items-start">
+                    {/* Left column: weekly hours + blocked dates */}
+                    <div className="space-y-8 w-full xl:max-w-sm">
 
-                {availLoading ? (
-                  <div className="flex items-center gap-2 text-gray-400 py-12">
-                    <RefreshCw size={15} className="animate-spin" />
-                    <span className="text-sm">Loading your schedule…</span>
-                  </div>
-                ) : (
-                  <>
-                    {/* Weekly schedule card */}
-                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                      {availDays.map((day, idx) => (
-                        <div
-                          key={day.dayOfWeek}
-                          className={`flex items-center gap-5 px-6 py-4 ${idx !== 0 ? "border-t border-gray-100" : ""} ${day.enabled ? "" : "bg-gray-50/60"}`}
-                        >
-                          {/* Toggle */}
-                          <button
-                            role="switch"
-                            aria-checked={day.enabled}
-                            onClick={() => updateDay(day.dayOfWeek, { enabled: !day.enabled })}
-                            className={`relative flex-shrink-0 inline-flex h-6 w-10 rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 ${day.enabled ? "bg-forest-600" : "bg-gray-200"}`}
-                          >
-                            <span className={`inline-block h-5 w-5 m-0.5 rounded-full bg-white shadow transition-transform duration-200 ${day.enabled ? "translate-x-4" : "translate-x-0"}`} />
-                          </button>
-
-                          {/* Day label */}
-                          <span className={`w-24 text-sm font-medium shrink-0 ${day.enabled ? "text-gray-900" : "text-gray-400"}`}>
-                            {DAY_NAMES[day.dayOfWeek].slice(0, 3).toUpperCase()}
-                            <span className="font-normal hidden sm:inline"> &nbsp;{DAY_NAMES[day.dayOfWeek].slice(3)}</span>
-                          </span>
-
-                          {day.enabled ? (
-                            /* Time range picker */
-                            <div className="flex items-center gap-3 flex-1">
-                              <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
-                                <select
-                                  value={day.startHour}
-                                  onChange={(e) => updateDay(day.dayOfWeek, { startHour: Number(e.target.value) })}
-                                  className="px-3 py-2 text-sm text-gray-800 bg-transparent focus:outline-none appearance-none cursor-pointer pr-6"
-                                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
-                                >
-                                  {hours.map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
-                                </select>
-                              </div>
-
-                              <span className="text-gray-400 text-sm select-none">→</span>
-
-                              <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
-                                <select
-                                  value={day.endHour}
-                                  onChange={(e) => updateDay(day.dayOfWeek, { endHour: Number(e.target.value) })}
-                                  className="px-3 py-2 text-sm text-gray-800 bg-transparent focus:outline-none appearance-none cursor-pointer pr-6"
-                                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
-                                >
-                                  {hours.filter(h => h.value > day.startHour).map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
-                                </select>
-                              </div>
-
-                              <span className="text-xs text-gray-400 hidden md:block">
-                                {Math.max(0, Math.floor((day.endHour * 60 - day.startHour * 60) / 30))} slots
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="text-sm text-gray-400 italic flex-1">Unavailable</span>
-                          )}
+                      {/* Header */}
+                      <div className="flex items-start justify-between gap-4 flex-wrap">
+                        <div>
+                          <h2 className="text-base font-semibold text-gray-900">Set your weekly hours</h2>
+                          <p className="text-sm text-gray-500 mt-0.5 flex items-center gap-1.5">
+                            <Clock size={13} className="text-forest-600" />
+                            Pacific Time (PT) · 30-minute sessions
+                          </p>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* Blocked dates card */}
-                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                      <div className="px-6 py-4 border-b border-gray-100">
-                        <h3 className="text-sm font-semibold text-gray-900">Date overrides</h3>
-                        <p className="text-xs text-gray-500 mt-0.5">Block off specific dates — no slots will be shown regardless of your weekly hours.</p>
+                        <button
+                          onClick={saveAvailability}
+                          disabled={availSaving}
+                          className="flex items-center gap-2 bg-forest-600 text-white px-4 py-2 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-50 shadow-sm"
+                        >
+                          <Save size={14} />
+                          {availSaving ? "Saving…" : "Save"}
+                        </button>
                       </div>
 
-                      {blockedDates.length > 0 && (
-                        <div className="divide-y divide-gray-100">
-                          {blockedDates.map((b) => (
-                            <div key={b.date} className="flex items-center gap-4 px-6 py-3">
-                              <div className="flex-1">
-                                <p className="text-sm font-medium text-gray-800">
-                                  {new Date(b.date + "T12:00:00Z").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}
-                                </p>
-                                {b.note && <p className="text-xs text-gray-400 mt-0.5">{b.note}</p>}
-                              </div>
-                              <button
-                                onClick={() => removeBlockedDate(b.date)}
-                                className="flex items-center gap-1 text-xs text-gray-400 hover:text-red-500 transition-colors px-2 py-1 rounded hover:bg-red-50"
+                      {availMsg && (
+                        <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 px-4 py-3 rounded-md">
+                          <Check size={15} /> {availMsg}
+                        </div>
+                      )}
+
+                      {availLoading ? (
+                        <div className="flex items-center gap-2 text-gray-400 py-12">
+                          <RefreshCw size={15} className="animate-spin" />
+                          <span className="text-sm">Loading your schedule…</span>
+                        </div>
+                      ) : (
+                        <>
+                          {/* Weekly schedule card */}
+                          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                            {availDays.map((day, idx) => (
+                              <div
+                                key={day.dayOfWeek}
+                                className={`flex items-center gap-4 px-5 py-3.5 ${idx !== 0 ? "border-t border-gray-100" : ""} ${day.enabled ? "" : "bg-gray-50/60"}`}
                               >
-                                <Trash2 size={12} /> Remove
-                              </button>
+                                <button
+                                  role="switch"
+                                  aria-checked={day.enabled}
+                                  onClick={() => updateDay(day.dayOfWeek, { enabled: !day.enabled })}
+                                  className={`relative flex-shrink-0 inline-flex h-5 w-9 rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 ${day.enabled ? "bg-forest-600" : "bg-gray-200"}`}
+                                >
+                                  <span className={`inline-block h-4 w-4 m-0.5 rounded-full bg-white shadow transition-transform duration-200 ${day.enabled ? "translate-x-4" : "translate-x-0"}`} />
+                                </button>
+                                <span className={`w-8 text-xs font-semibold shrink-0 ${day.enabled ? "text-gray-900" : "text-gray-400"}`}>
+                                  {DAY_NAMES[day.dayOfWeek].slice(0, 3).toUpperCase()}
+                                </span>
+                                {day.enabled ? (
+                                  <div className="flex items-center gap-2 flex-1">
+                                    <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                                      <select
+                                        value={day.startHour}
+                                        onChange={(e) => updateDay(day.dayOfWeek, { startHour: Number(e.target.value) })}
+                                        className="px-2 py-1.5 text-xs text-gray-800 bg-transparent focus:outline-none appearance-none cursor-pointer pr-5"
+                                        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 6px center" }}
+                                      >
+                                        {hours.map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
+                                      </select>
+                                    </div>
+                                    <span className="text-gray-400 text-xs select-none">–</span>
+                                    <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                                      <select
+                                        value={day.endHour}
+                                        onChange={(e) => updateDay(day.dayOfWeek, { endHour: Number(e.target.value) })}
+                                        className="px-2 py-1.5 text-xs text-gray-800 bg-transparent focus:outline-none appearance-none cursor-pointer pr-5"
+                                        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 6px center" }}
+                                      >
+                                        {hours.filter(h => h.value > day.startHour).map((h) => <option key={h.value} value={h.value}>{h.label}</option>)}
+                                      </select>
+                                    </div>
+                                    <span className="text-[10px] text-gray-400 hidden sm:block whitespace-nowrap">
+                                      {Math.max(0, Math.floor((day.endHour * 60 - day.startHour * 60) / 30))} slots
+                                    </span>
+                                  </div>
+                                ) : (
+                                  <span className="text-xs text-gray-400 italic flex-1">Unavailable</span>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Blocked dates card */}
+                          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                            <div className="px-5 py-4 border-b border-gray-100">
+                              <h3 className="text-sm font-semibold text-gray-900">Date overrides</h3>
+                              <p className="text-xs text-gray-500 mt-0.5">Block specific dates — no slots shown regardless of weekly hours.</p>
+                            </div>
+                            {blockedDates.length > 0 && (
+                              <div className="divide-y divide-gray-100">
+                                {blockedDates.map((b) => (
+                                  <div key={b.date} className="flex items-center gap-3 px-5 py-3">
+                                    <div className="flex-1">
+                                      <p className="text-xs font-medium text-gray-800">
+                                        {new Date(b.date + "T12:00:00Z").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}
+                                      </p>
+                                      {b.note && <p className="text-[10px] text-gray-400 mt-0.5">{b.note}</p>}
+                                    </div>
+                                    <button onClick={() => removeBlockedDate(b.date)} className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-red-500 transition-colors px-2 py-1 rounded hover:bg-red-50">
+                                      <Trash2 size={11} /> Remove
+                                    </button>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            <div className="px-5 py-4 border-t border-gray-100 bg-gray-50/60">
+                              <p className="text-xs font-medium text-gray-600 mb-3">Add a blocked date</p>
+                              <div className="flex gap-2 flex-wrap">
+                                <input
+                                  type="date"
+                                  value={newBlockDate}
+                                  onChange={(e) => setNewBlockDate(e.target.value)}
+                                  className="border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white shadow-sm"
+                                />
+                                <input
+                                  type="text"
+                                  value={newBlockNote}
+                                  onChange={(e) => setNewBlockNote(e.target.value)}
+                                  placeholder="Reason (optional)"
+                                  className="flex-1 min-w-[140px] border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white shadow-sm"
+                                />
+                                <button
+                                  onClick={addBlockedDate}
+                                  disabled={!newBlockDate}
+                                  className="flex items-center gap-1.5 bg-white border border-gray-200 text-gray-700 px-3 py-2 text-sm rounded-md hover:bg-gray-50 transition-colors disabled:opacity-40 shadow-sm font-medium"
+                                >
+                                  <Plus size={13} /> Add
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-end pt-2">
+                            <button
+                              onClick={saveAvailability}
+                              disabled={availSaving}
+                              className="flex items-center gap-2 bg-forest-600 text-white px-5 py-2.5 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-50 shadow-sm"
+                            >
+                              <Save size={14} />
+                              {availSaving ? "Saving…" : "Save changes"}
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Right column: calendar */}
+                    <div className="flex-1 min-w-0 space-y-4">
+                      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        {/* Calendar header */}
+                        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+                          <button onClick={() => navCalendarMonth(-1)} className="p-1.5 rounded-md hover:bg-gray-100 transition-colors">
+                            <ChevronLeft size={16} className="text-gray-600" />
+                          </button>
+                          <div className="text-center">
+                            <h3 className="text-sm font-semibold text-gray-900">{calMonthLabel}</h3>
+                            <p className="text-[10px] text-gray-400 mt-0.5">Click any day to add events · Pacific Time</p>
+                          </div>
+                          <button onClick={() => navCalendarMonth(1)} className="p-1.5 rounded-md hover:bg-gray-100 transition-colors">
+                            <ChevronRight size={16} className="text-gray-600" />
+                          </button>
+                        </div>
+
+                        {/* Legend */}
+                        <div className="flex items-center gap-4 px-5 py-2.5 bg-gray-50/60 border-b border-gray-100 flex-wrap">
+                          {[
+                            { color: "bg-green-500", label: "Confirmed" },
+                            { color: "bg-amber-400", label: "Pending" },
+                            { color: "bg-red-400", label: "Blocked" },
+                            { color: "bg-blue-500", label: "Custom Event" },
+                          ].map((l) => (
+                            <div key={l.label} className="flex items-center gap-1.5">
+                              <span className={`w-2 h-2 rounded-full ${l.color}`} />
+                              <span className="text-[10px] text-gray-500">{l.label}</span>
                             </div>
                           ))}
                         </div>
-                      )}
 
-                      <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/60">
-                        <p className="text-xs font-medium text-gray-600 mb-3">Add a blocked date</p>
-                        <div className="flex gap-2 flex-wrap">
-                          <input
-                            type="date"
-                            value={newBlockDate}
-                            onChange={(e) => setNewBlockDate(e.target.value)}
-                            className="border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white shadow-sm"
-                          />
-                          <input
-                            type="text"
-                            value={newBlockNote}
-                            onChange={(e) => setNewBlockNote(e.target.value)}
-                            placeholder="Reason (optional)"
-                            className="flex-1 min-w-[160px] border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white shadow-sm"
-                          />
-                          <button
-                            onClick={addBlockedDate}
-                            disabled={!newBlockDate}
-                            className="flex items-center gap-1.5 bg-white border border-gray-200 text-gray-700 px-4 py-2 text-sm rounded-md hover:bg-gray-50 transition-colors disabled:opacity-40 shadow-sm font-medium"
-                          >
-                            <Plus size={14} /> Add date
-                          </button>
+                        {/* Day-of-week headers */}
+                        <div className="grid grid-cols-7 border-b border-gray-100">
+                          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+                            <div key={d} className="text-center text-[10px] font-medium text-gray-400 py-2">{d}</div>
+                          ))}
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Save confirmation footer */}
-                    <div className="flex items-center justify-end gap-4 pt-2">
-                      {availMsg && (
-                        <span className="text-sm text-green-700 flex items-center gap-1.5">
-                          <Check size={14} /> {availMsg}
-                        </span>
+                        {/* Day cells */}
+                        {calEventsLoading ? (
+                          <div className="flex items-center justify-center py-16 gap-2 text-gray-400">
+                            <RefreshCw size={14} className="animate-spin" /> <span className="text-sm">Loading…</span>
+                          </div>
+                        ) : (
+                          <div className="grid grid-cols-7">
+                            {gridCells.map((date, i) => {
+                              if (!date) return <div key={`empty-${i}`} className="border-t border-r border-gray-100 last:border-r-0 min-h-[60px] bg-gray-50/30" />;
+                              const dayNum = Number(date.slice(8));
+                              const isToday = date === todayISO;
+                              const isSelected = date === selectedCalDay;
+                              const blocked = isBlocked(date);
+                              const dayBookings = bookings.filter((b) => b.startTime.slice(0, 10) === date && b.status !== "cancelled");
+                              const confirmedCount = dayBookings.filter((b) => b.status === "confirmed").length;
+                              const pendingCount = dayBookings.filter((b) => b.status === "pending").length;
+                              const dayEvents = calendarEvents.filter((e) => e.date === date);
+
+                              return (
+                                <button
+                                  key={date}
+                                  onClick={() => setSelectedCalDay(isSelected ? null : date)}
+                                  className={`border-t border-r border-gray-100 last:border-r-0 min-h-[60px] p-1.5 text-left transition-colors relative flex flex-col ${
+                                    isSelected ? "bg-forest-50 ring-2 ring-inset ring-forest-400" :
+                                    "hover:bg-gray-50"
+                                  } ${blocked ? "bg-red-50/40" : ""}`}
+                                >
+                                  <span className={`text-xs font-medium w-6 h-6 flex items-center justify-center rounded-full mb-1 ${
+                                    isToday ? "bg-forest-600 text-white" : "text-gray-700"
+                                  }`}>
+                                    {dayNum}
+                                  </span>
+                                  <div className="flex flex-wrap gap-0.5">
+                                    {confirmedCount > 0 && <span className="w-2 h-2 rounded-full bg-green-500 shrink-0" title={`${confirmedCount} confirmed`} />}
+                                    {pendingCount > 0 && <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" title={`${pendingCount} pending`} />}
+                                    {blocked && <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" title="Blocked" />}
+                                    {dayEvents.map((ev) => (
+                                      <span key={ev.id} className={`w-2 h-2 rounded-full shrink-0 ${eventDotClass(ev.color)}`} title={ev.title} />
+                                    ))}
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Day detail panel */}
+                      {selectedCalDay && (
+                        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                            <h3 className="text-sm font-semibold text-gray-900">
+                              {new Date(selectedCalDay + "T12:00:00Z").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}
+                            </h3>
+                            <button onClick={() => setSelectedCalDay(null)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                              <X size={16} />
+                            </button>
+                          </div>
+
+                          <div className="px-5 py-4 space-y-4">
+                            {/* Bookings on this day */}
+                            {selectedDayBookings.length > 0 && (
+                              <div>
+                                <p className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-2">Sessions</p>
+                                <div className="space-y-1.5">
+                                  {selectedDayBookings.map((b) => (
+                                    <div key={b.id} className="flex items-center gap-3 py-1.5 px-3 rounded-md bg-gray-50 border border-gray-100">
+                                      <span className={`w-2 h-2 rounded-full shrink-0 ${b.status === "confirmed" ? "bg-green-500" : "bg-amber-400"}`} />
+                                      <span className="text-sm text-gray-800 font-medium">{b.name}</span>
+                                      <span className="text-xs text-gray-500 ml-auto">{formatTime(b.startTime, "America/Los_Angeles")} PT</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Blocked indicator */}
+                            {isBlocked(selectedCalDay) && (
+                              <div className="flex items-center gap-2 py-1.5 px-3 rounded-md bg-red-50 border border-red-100">
+                                <span className="w-2 h-2 rounded-full bg-red-400" />
+                                <span className="text-xs text-red-700 font-medium">This date is blocked</span>
+                              </div>
+                            )}
+
+                            {/* Custom events */}
+                            {selectedDayEvents.length > 0 && (
+                              <div>
+                                <p className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-2">Events</p>
+                                <div className="space-y-1.5">
+                                  {selectedDayEvents.map((ev) => (
+                                    <div key={ev.id} className="flex items-start gap-3 py-2 px-3 rounded-md bg-gray-50 border border-gray-100">
+                                      <span className={`w-2 h-2 rounded-full shrink-0 mt-1 ${eventDotClass(ev.color)}`} />
+                                      <div className="flex-1 min-w-0">
+                                        <p className="text-sm text-gray-800 font-medium">{ev.title}</p>
+                                        {ev.note && <p className="text-xs text-gray-500 mt-0.5">{ev.note}</p>}
+                                      </div>
+                                      <button onClick={() => deleteCalendarEvent(ev.id)} className="text-gray-300 hover:text-red-500 transition-colors mt-0.5 shrink-0">
+                                        <Trash2 size={13} />
+                                      </button>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {selectedDayBookings.length === 0 && !isBlocked(selectedCalDay) && selectedDayEvents.length === 0 && (
+                              <p className="text-xs text-gray-400 italic">Nothing scheduled for this day.</p>
+                            )}
+
+                            {/* Add event form */}
+                            <div className="border-t border-gray-100 pt-4">
+                              <p className="text-[10px] uppercase tracking-widest-xl text-gray-500 mb-3">Add Event</p>
+                              <div className="space-y-2.5">
+                                <input
+                                  type="text"
+                                  value={newEventTitle}
+                                  onChange={(e) => setNewEventTitle(e.target.value)}
+                                  placeholder="Event title *"
+                                  className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+                                />
+                                <input
+                                  type="text"
+                                  value={newEventNote}
+                                  onChange={(e) => setNewEventNote(e.target.value)}
+                                  placeholder="Note (optional)"
+                                  className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+                                />
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs text-gray-500 shrink-0">Color:</span>
+                                  <div className="flex gap-1.5">
+                                    {EVENT_COLORS.map((c) => (
+                                      <button
+                                        key={c.value}
+                                        onClick={() => setNewEventColor(c.value)}
+                                        title={c.label}
+                                        className={`w-6 h-6 rounded-full ${c.bg} transition-transform hover:scale-110 ${newEventColor === c.value ? `ring-2 ring-offset-1 ${c.ring}` : ""}`}
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={addCalendarEvent}
+                                  disabled={addingEvent || !newEventTitle.trim()}
+                                  className="flex items-center gap-1.5 bg-forest-600 text-white px-4 py-2 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-40 w-full justify-center"
+                                >
+                                  <Plus size={14} />
+                                  {addingEvent ? "Adding…" : "Add to calendar"}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       )}
-                      <button
-                        onClick={saveAvailability}
-                        disabled={availSaving}
-                        className="flex items-center gap-2 bg-forest-600 text-white px-6 py-2.5 text-sm font-medium rounded-md hover:bg-forest-700 transition-colors disabled:opacity-50 shadow-sm"
-                      >
-                        <Save size={14} />
-                        {availSaving ? "Saving…" : "Save changes"}
-                      </button>
                     </div>
-                  </>
-                )}
-              </div>
-            )}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* ── CONTENT ── */}
             {tab === "content" && (

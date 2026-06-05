@@ -52,3 +52,12 @@ model SiteContent {
   key   String @id
   value String
 }
+
+model CalendarEvent {
+  id        String   @id @default(cuid())
+  date      String
+  title     String
+  note      String?
+  color     String   @default("blue")
+  createdAt DateTime @default(now())
+}
