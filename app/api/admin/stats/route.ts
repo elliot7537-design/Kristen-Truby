@@ -4,8 +4,9 @@ import { prisma } from "@/lib/db";
 export async function GET() {
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
 
-  const [total, thisMonth, upcoming, pending, cancelled, recentBookings, monthlyBreakdown] =
+  const [total, thisMonth, upcoming, pending, cancelled, recentBookings, allRecent] =
     await Promise.all([
       prisma.booking.count({ where: { status: { not: "cancelled" } } }),
       prisma.booking.count({
@@ -21,25 +22,23 @@ export async function GET() {
         orderBy: { startTime: "asc" },
         take: 5,
       }),
-      // Last 6 months booking counts
-      prisma.booking.groupBy({
-        by: ["createdAt"],
+      prisma.booking.findMany({
         where: {
-          createdAt: { gte: new Date(now.getFullYear(), now.getMonth() - 5, 1) },
+          createdAt: { gte: sixMonthsAgo },
           status: { not: "cancelled" },
         },
-        _count: true,
+        select: { createdAt: true },
       }),
     ]);
 
-  // Build monthly counts for the last 6 months
+  // Group into monthly buckets in JS (avoids SQLite groupBy limitations)
   const months: { label: string; count: number }[] = [];
   for (let i = 5; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
     const label = d.toLocaleString("en-US", { month: "short", year: "2-digit" });
-    const count = monthlyBreakdown.filter((b) => {
-      const bDate = new Date(b.createdAt);
-      return bDate.getFullYear() === d.getFullYear() && bDate.getMonth() === d.getMonth();
+    const count = allRecent.filter((b) => {
+      const bd = new Date(b.createdAt);
+      return bd.getFullYear() === d.getFullYear() && bd.getMonth() === d.getMonth();
     }).length;
     months.push({ label, count });
   }
