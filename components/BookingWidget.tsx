@@ -88,6 +88,7 @@ function CalendarGrid({
   viewMonth,
   selectedDate,
   timezone,
+  availableDays,
   onSelect,
   onPrev,
   onNext,
@@ -95,6 +96,7 @@ function CalendarGrid({
   viewMonth: Date;
   selectedDate: string | null;
   timezone: string;
+  availableDays: number[];
   onSelect: (d: string) => void;
   onPrev: () => void;
   onNext: () => void;
@@ -105,7 +107,7 @@ function CalendarGrid({
   const maxStr = toDateStr(maxDate);
 
   const monthStart = startOfUTCMonth(viewMonth);
-  const startDow = monthStart.getUTCDay(); // 0=Sun
+  const startDow = monthStart.getUTCDay();
   const daysInMonth = new Date(Date.UTC(viewMonth.getUTCFullYear(), viewMonth.getUTCMonth() + 1, 0)).getUTCDate();
 
   const canPrev = !isSameMonth(viewMonth, today);
@@ -118,12 +120,11 @@ function CalendarGrid({
     ),
   ];
 
-  // Check if a date is a weekday and within range
   function isSelectable(ds: string): boolean {
     if (ds <= todayStr || ds > maxStr) return false;
     const d = new Date(ds + "T12:00:00Z");
     const dow = d.getUTCDay();
-    return dow >= 1 && dow <= 5;
+    return availableDays.includes(dow);
   }
 
   return (
@@ -254,6 +255,7 @@ export function BookingWidget() {
   const [slots, setSlots] = useState<Slot[]>([]);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
+  const [availableDays, setAvailableDays] = useState<number[]>([1, 2, 3, 4, 5]);
 
   // Form
   const [name, setName] = useState("");
@@ -264,9 +266,13 @@ export function BookingWidget() {
   const [formError, setFormError] = useState("");
   const [, setConfirmedId] = useState("");
 
-  // Detect timezone on mount
+  // Detect timezone and fetch available days on mount
   useEffect(() => {
     setTimezone(detectTimezone());
+    fetch("/api/booking/available-days")
+      .then((r) => r.json())
+      .then((d) => { if (Array.isArray(d.days)) setAvailableDays(d.days); })
+      .catch(() => {});
   }, []);
 
   const handleTimezoneChange = (tz: string) => { setTimezone(tz); setIsAuto(false); };
@@ -347,6 +353,7 @@ export function BookingWidget() {
             viewMonth={viewMonth}
             selectedDate={selectedDate}
             timezone={timezone}
+            availableDays={availableDays}
             onSelect={handleDateSelect}
             onPrev={() => setViewMonth((m) => addDays(startOfUTCMonth(m), -1))}
             onNext={() => setViewMonth((m) => addDays(startOfUTCMonth(addDays(m, 32)), 0))}

@@ -44,7 +44,13 @@ function SplitWord({ word, emphasize }: { word: string; emphasize?: boolean }) {
   );
 }
 
-export function Hero() {
+export function Hero({
+  heroImage,
+  heroSubheadline,
+}: {
+  heroImage?: string;
+  heroSubheadline?: string;
+} = {}) {
   const reduce = useReducedMotion();
 
   return (
@@ -82,7 +88,7 @@ export function Hero() {
           className="md:col-span-5 relative aspect-[3/4] w-full bg-sage-200"
         >
           <Image
-            src="/images/kristen-hero.jpg"
+            src={heroImage ?? "/images/kristen-hero.jpg"}
             alt="Kristen Truby portrait"
             fill
             priority
@@ -163,7 +169,7 @@ export function Hero() {
             variants={fadeUp}
             className="mt-8 max-w-xl text-cream-50/80 text-base md:text-lg leading-relaxed"
           >
-            Helping women reconnect with God, regain clarity, and move forward with confidence.
+            {heroSubheadline ?? "Helping women reconnect with God, regain clarity, and move forward with confidence."}
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">

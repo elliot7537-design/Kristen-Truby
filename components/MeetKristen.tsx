@@ -9,7 +9,19 @@ function scrollToContact() {
   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 }
 
-export function MeetKristen() {
+export function MeetKristen({
+  portraitImage,
+  bio1,
+  bio2,
+  bio3,
+  bio4,
+}: {
+  portraitImage?: string;
+  bio1?: string;
+  bio2?: string;
+  bio3?: string;
+  bio4?: string;
+} = {}) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
@@ -29,10 +41,10 @@ export function MeetKristen() {
       <div className="grid md:grid-cols-2 min-h-screen">
 
         {/* Left — portrait image */}
-        <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
-          <motion.div style={{ y }} className="absolute inset-0 -top-12 -bottom-12">
+        <div className="relative h-[90vw] max-h-[560px] md:max-h-none md:sticky md:top-0 md:h-screen order-2 md:order-1">
+          <motion.div style={{ y }} className="absolute inset-0 md:-top-12 md:-bottom-12">
             <Image
-              src="/images/kristen-portrait-new.png"
+              src={portraitImage ?? "/images/kristen-portrait-new.png"}
               alt="Kristen Truby, Christian life coach"
               fill
               quality={90}
@@ -74,37 +86,25 @@ export function MeetKristen() {
           <div className="mt-10 space-y-6 text-ink-700 leading-relaxed text-[17px]">
             <Reveal delay={0.15}>
               <p>
-                I&apos;m a certified Christian life coach with a Master&apos;s degree in
-                Sociology, and I&apos;ve spent over 20 years serving as a missionary
-                around the world. That journey took me into many different communities
-                and cultures, where I learned how to truly listen, connect, and
-                understand people&apos;s stories on a deeper level.
+                {bio1 ?? "I'm a certified Christian life coach with a Master's degree in Sociology, and I've spent over 20 years serving as a missionary around the world. That journey took me into many different communities and cultures, where I learned how to truly listen, connect, and understand people's stories on a deeper level."}
               </p>
             </Reveal>
 
             <Reveal delay={0.2}>
               <p>
-                Those experiences shaped the way I show up: with compassion,
-                patience, and care.
+                {bio2 ?? "Those experiences shaped the way I show up: with compassion, patience, and care."}
               </p>
             </Reveal>
 
             <Reveal delay={0.25}>
               <p>
-                Rooted and Rising was created for the seasons when life feels
-                uncertain, heavy, or full of transition. I believe that with the
-                right support, you can rediscover clarity, rebuild your strength,
-                and move forward with purpose.
+                {bio3 ?? "Rooted and Rising was created for the seasons when life feels uncertain, heavy, or full of transition. I believe that with the right support, you can rediscover clarity, rebuild your strength, and move forward with purpose."}
               </p>
             </Reveal>
 
             <Reveal delay={0.3}>
               <p>
-                In our work together, I create a calm, faith-rooted space where
-                you can slow down, breathe, and reconnect with who God created
-                you to be. Whether you&apos;re navigating a life transition,
-                rebuilding your faith, or simply ready to move forward with more
-                intention; I&apos;m honored to walk alongside you.
+                {bio4 ?? "In our work together, I create a calm, faith-rooted space where you can slow down, breathe, and reconnect with who God created you to be. Whether you're navigating a life transition, rebuilding your faith, or simply ready to move forward with more intention; I'm honored to walk alongside you."}
               </p>
             </Reveal>
           </div>

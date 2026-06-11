@@ -30,15 +30,15 @@ const PILLARS = [
   },
 ];
 
-export function WhatWeFocusOn() {
+export function WhatWeFocusOn({ focusImage }: { focusImage?: string } = {}) {
   return (
     <section className="bg-cream-50 text-ink-900 overflow-hidden">
       <div className="grid md:grid-cols-2 min-h-screen">
 
         {/* Left — sticky image */}
-        <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
+        <div className="relative h-[65vw] min-h-[260px] max-h-[480px] md:max-h-none md:sticky md:top-0 md:h-screen order-2 md:order-1">
           <Image
-            src="/images/focus-session.png"
+            src={focusImage ?? "/images/focus-session.png"}
             alt="Peaceful nature — a reminder to pause and reflect"
             fill
             quality={90}
