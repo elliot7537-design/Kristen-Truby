@@ -63,12 +63,12 @@ export function Footer() {
             <ul className="space-y-4 text-cream-50/85">
               <li>
                 <a
-                  href="mailto:hello@rootedandrising.com"
+                  href="mailto:kristruby@gmail.com"
                   className="flex items-center gap-3 hover:text-sage-300 transition-colors"
                 >
                   <Mail size={16} strokeWidth={1.5} />
                   <span className="text-sm tracking-wide">
-                    hello@rootedandrising.com
+                    kristruby@gmail.com
                   </span>
                 </a>
               </li>

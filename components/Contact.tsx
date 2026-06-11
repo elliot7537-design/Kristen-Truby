@@ -33,11 +33,11 @@ export function Contact() {
           </Reveal>
           <Reveal delay={0.3}>
             <a
-              href="mailto:hello@rootedandrising.com"
+              href="mailto:kristruby@gmail.com"
               className="mt-8 inline-flex items-center gap-3 text-forest-700 hover:text-forest-500 transition-colors"
             >
               <Mail size={16} strokeWidth={1.5} />
-              <span className="text-sm tracking-wide">hello@rootedandrising.com</span>
+              <span className="text-sm tracking-wide">kristruby@gmail.com</span>
             </a>
           </Reveal>
         </div>
