@@ -41,8 +41,8 @@ export function MeetKristen({
       <div className="grid md:grid-cols-2 min-h-screen">
 
         {/* Left — portrait image */}
-        <div className="relative md:sticky md:top-0 md:h-screen order-2 md:order-1">
-          <motion.div style={{ y }} className="absolute inset-0 -top-12 -bottom-12">
+        <div className="relative h-[90vw] max-h-[560px] md:max-h-none md:sticky md:top-0 md:h-screen order-2 md:order-1">
+          <motion.div style={{ y }} className="absolute inset-0 md:-top-12 md:-bottom-12">
             <Image
               src={portraitImage ?? "/images/kristen-portrait-new.png"}
               alt="Kristen Truby, Christian life coach"
